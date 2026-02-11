@@ -366,16 +366,28 @@ img {
 .hero-badge {
     display: inline-block;
     font-family: var(--font-mono);
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.2em;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--accent-blue);
-    background: var(--accent-blue-dim);
-    border: 1px solid rgba(37, 99, 235, 0.2);
-    padding: 8px 20px;
+    background-image: linear-gradient(135deg, #38bdf8 0%, #06b6d4 40%, #2dd4bf 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    border: 1px solid rgba(6, 182, 212, 0.25);
+    padding: 10px 28px;
     border-radius: 100px;
     margin-bottom: 32px;
+    position: relative;
+}
+
+.hero-badge::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 100px;
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.08), rgba(45, 212, 191, 0.06));
+    z-index: -1;
 }
 
 .hero-title {
@@ -971,9 +983,9 @@ img {
                             <stop offset="100%" style="stop-color:#3b82f6"/>
                         </linearGradient>
                     </defs>
-                    <rect x="0" y="8" width="32" height="24" rx="4" stroke="url(#accentGrad)" stroke-width="1.5" fill="none"/>
-                    <polyline points="6,26 12,18 18,22 26,12" stroke="url(#accentGrad)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                    <circle cx="26" cy="12" r="2" fill="#2563eb"/>
+                    <path d="M8 20c-4.4 0-8-3.1-8-7s3.6-7 8-7c3 0 5.7 1.7 7 4.2C16.3 7.7 19 6 22 6c4.4 0 8 3.1 8 7s-3.6 7-8 7c-3 0-5.7-1.7-7-4.2C13.7 18.3 11 20 8 20z" stroke="url(#accentGrad)" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="8" cy="13" r="1.5" fill="#2563eb" opacity="0.6"/>
+                    <circle cx="22" cy="13" r="1.5" fill="#3b82f6" opacity="0.6"/>
                     <text x="42" y="28" font-family="Inter, -apple-system, sans-serif" font-size="20" font-weight="700" letter-spacing="3" fill="url(#textGrad)">ONLY A TRADER</text>
                 </svg>
             </a>
@@ -1150,6 +1162,20 @@ img {
                     <p>Major forex pariteleri ve küresel endekslerde institutional price action yapıları, order block seviyeleri ve likidite haritalaması.</p>
                     <span class="feature-tag">Aktif</span>
                 </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M3 3v18h18"/>
+                            <path d="M8 17V9"/>
+                            <path d="M12 17V5"/>
+                            <path d="M16 17v-4"/>
+                            <path d="M20 17v-8"/>
+                        </svg>
+                    </div>
+                    <h3>Hisse Senetleri</h3>
+                    <p>Borsa endeksleri ve bireysel hisse senetlerinde kurumsal sermaye hareketleri, arz-talep bölgeleri ve yapısal teknik analiz.</p>
+                    <span class="feature-tag">Aktif</span>
+                </div>
                 <div class="feature-card feature-card-coming">
                     <div class="feature-icon">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -1239,9 +1265,9 @@ img {
                                 <stop offset="100%" style="stop-color:#3b82f6"/>
                             </linearGradient>
                         </defs>
-                        <rect x="0" y="8" width="32" height="24" rx="4" stroke="url(#accentGrad2)" stroke-width="1.5" fill="none"/>
-                        <polyline points="6,26 12,18 18,22 26,12" stroke="url(#accentGrad2)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                        <circle cx="26" cy="12" r="2" fill="#2563eb"/>
+                        <path d="M8 20c-4.4 0-8-3.1-8-7s3.6-7 8-7c3 0 5.7 1.7 7 4.2C16.3 7.7 19 6 22 6c4.4 0 8 3.1 8 7s-3.6 7-8 7c-3 0-5.7-1.7-7-4.2C13.7 18.3 11 20 8 20z" stroke="url(#accentGrad2)" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="8" cy="13" r="1.5" fill="#2563eb" opacity="0.6"/>
+                        <circle cx="22" cy="13" r="1.5" fill="#3b82f6" opacity="0.6"/>
                         <text x="42" y="28" font-family="Inter, -apple-system, sans-serif" font-size="20" font-weight="700" letter-spacing="3" fill="url(#textGrad2)">ONLY A TRADER</text>
                     </svg>
                     <p class="footer-tagline">Supply &amp; Demand | Institutional Price Action</p>
