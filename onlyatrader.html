@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Only a Trader - Supply & Demand | Institutional Price Action. Piyasayı tahmin etmiyoruz. Likiditeyi, arz-talep bölgelerini ve makro akışı okuyoruz.">
+    <title>Only a Trader | Institutional Price Action</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+/* ============================================
+   ONLY A TRADER - Institutional Price Action
+   Dark, premium, sophisticated design system
+   ============================================ */
+
+:root {
+    --bg-primary: #050507;
+    --bg-secondary: #0a0a0f;
+    --bg-surface: #0f0f16;
+    --bg-card: #12121c;
+    --bg-card-hover: #161622;
+    --bg-elevated: #1a1a28;
+
+    --text-primary: #e8e8ed;
+    --text-secondary: #8888a0;
+    --text-muted: #55556a;
+
+    --accent-blue: #2563eb;
+    --accent-blue-dim: rgba(37, 99, 235, 0.15);
+    --accent-blue-glow: rgba(37, 99, 235, 0.3);
+    --accent-orange: #d97706;
+    --accent-orange-dim: rgba(217, 119, 6, 0.15);
+    --accent-gold: #c9a227;
+    --accent-gold-dim: rgba(201, 162, 39, 0.15);
+    --accent-green: #10b981;
+
+    --border-color: rgba(255, 255, 255, 0.06);
+    --border-hover: rgba(255, 255, 255, 0.12);
+
+    --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 48px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 40px rgba(37, 99, 235, 0.1);
+
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-main);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.7;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color var(--transition);
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.text-accent {
+    color: var(--accent-blue);
+}
+
+.section-header {
+    margin-bottom: 64px;
+}
+
+.section-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    background: var(--accent-blue-dim);
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 32px;
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition);
+    border: none;
+    letter-spacing: 0.01em;
+}
+
+.btn-primary {
+    background: var(--accent-blue);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+}
+
+.btn-primary:hover {
+    background: #3b82f6;
+    box-shadow: 0 6px 24px rgba(37, 99, 235, 0.4);
+    transform: translateY(-1px);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-hover);
+}
+
+.btn-outline:hover {
+    color: var(--text-primary);
+    border-color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* NAVIGATION */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 20px 0;
+    transition: all var(--transition);
+    background: transparent;
+}
+
+.navbar.scrolled {
+    padding: 12px 0;
+    background: rgba(5, 5, 7, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-logo-img {
+    height: 36px;
+    width: auto;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 36px;
+}
+
+.nav-links a {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    letter-spacing: 0.02em;
+    position: relative;
+    padding: 4px 0;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent-blue);
+    transition: width var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--text-primary);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--text-secondary);
+    transition: all var(--transition);
+}
+
+.nav-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(4px, 5px);
+}
+
+.nav-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(4px, -5px);
+}
+
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    background: rgba(5, 5, 7, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition);
+}
+
+.mobile-menu.active {
+    display: flex;
+    opacity: 1;
+    pointer-events: all;
+}
+
+.mobile-menu-links {
+    list-style: none;
+    text-align: center;
+}
+
+.mobile-menu-links li {
+    margin-bottom: 32px;
+}
+
+.mobile-menu-links a {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: color var(--transition);
+}
+
+.mobile-menu-links a:hover {
+    color: var(--text-primary);
+}
+
+/* HERO SECTION */
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 120px 0 80px;
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.hero-bg canvas {
+    width: 100%;
+    height: 100%;
+    opacity: 0.25;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(37, 99, 235, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(217, 119, 6, 0.05) 0%, transparent 50%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(to top, var(--bg-primary), transparent);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.hero-badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    background: var(--accent-blue-dim);
+    border: 1px solid rgba(37, 99, 235, 0.2);
+    padding: 8px 20px;
+    border-radius: 100px;
+    margin-bottom: 32px;
+}
+
+.hero-title {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #ffffff 0%, #c8c8d0 50%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-family: var(--font-mono);
+    font-size: clamp(0.8rem, 1.5vw, 1rem);
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+}
+
+.hero-description {
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto 40px;
+    line-height: 1.8;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 72px;
+    flex-wrap: wrap;
+}
+
+.hero-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding-top: 48px;
+    border-top: 1px solid var(--border-color);
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-value {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
+}
+
+.stat-divider {
+    width: 1px;
+    height: 40px;
+    background: var(--border-color);
+}
+
+/* ABOUT SECTION */
+.about {
+    padding: 120px 0;
+    position: relative;
+}
+
+.about::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, transparent, var(--border-hover), transparent);
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 64px;
+    align-items: start;
+}
+
+.about-main p {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.about-main p:first-child {
+    font-size: 1.15rem;
+    color: var(--text-primary);
+    font-weight: 400;
+}
+
+.about-main strong {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.about-aside {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: sticky;
+    top: 120px;
+}
+
+.about-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    transition: all var(--transition);
+}
+
+.about-card:hover {
+    border-color: var(--border-hover);
+    background: var(--bg-card-hover);
+}
+
+.about-card-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-blue-dim);
+    border-radius: var(--radius-md);
+    color: var(--accent-blue);
+    margin-bottom: 16px;
+}
+
+.about-card h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.about-card p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.disclaimer {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 16px 20px;
+    background: rgba(217, 119, 6, 0.06);
+    border: 1px solid rgba(217, 119, 6, 0.12);
+    border-radius: var(--radius-md);
+    color: var(--accent-orange);
+}
+
+.disclaimer svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.disclaimer p {
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: var(--accent-orange);
+    opacity: 0.85;
+}
+
+/* FEATURES SECTION */
+.features {
+    padding: 120px 0;
+    background: var(--bg-secondary);
+    position: relative;
+}
+
+.features::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border-hover), transparent);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.feature-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    transition: all var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent-blue);
+    opacity: 0;
+    transition: opacity var(--transition);
+}
+
+.feature-card:hover {
+    border-color: var(--border-hover);
+    background: var(--bg-card-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.feature-card:hover::before {
+    opacity: 1;
+}
+
+.feature-card-coming {
+    opacity: 0.65;
+    border-style: dashed;
+}
+
+.feature-card-coming:hover {
+    opacity: 0.85;
+}
+
+.feature-icon {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-blue-dim);
+    border-radius: var(--radius-md);
+    color: var(--accent-blue);
+    margin-bottom: 20px;
+}
+
+.feature-icon-gold {
+    background: var(--accent-gold-dim);
+    color: var(--accent-gold);
+}
+
+.feature-card h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
+.feature-card p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 16px;
+}
+
+.feature-tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-green);
+    background: rgba(16, 185, 129, 0.1);
+    padding: 4px 10px;
+    border-radius: 100px;
+}
+
+.feature-tag-soon {
+    color: var(--accent-orange);
+    background: var(--accent-orange-dim);
+}
+
+/* EDUCATION SECTION */
+.education {
+    padding: 120px 0;
+    position: relative;
+}
+
+.education-wrapper {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 64px;
+    align-items: center;
+}
+
+.education-description {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 32px;
+}
+
+.waitlist-features {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.waitlist-feature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.waitlist-feature svg {
+    color: var(--accent-blue);
+    flex-shrink: 0;
+}
+
+.form-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 40px;
+}
+
+.form-card h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.form-card > p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+}
+
+.waitlist-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 14px 18px;
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    outline: none;
+    transition: all var(--transition);
+}
+
+.form-group input::placeholder {
+    color: var(--text-muted);
+}
+
+.form-group input:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px var(--accent-blue-dim);
+}
+
+.form-note {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 12px;
+}
+
+/* FOOTER */
+.footer {
+    padding: 48px 0 32px;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-primary);
+}
+
+.footer-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 24px;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.footer-logo-img {
+    height: 30px;
+    width: auto;
+}
+
+.footer-tagline {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+}
+
+.footer-social {
+    display: flex;
+    gap: 12px;
+}
+
+.social-link {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    transition: all var(--transition);
+}
+
+.social-link:hover {
+    color: var(--text-primary);
+    border-color: var(--border-hover);
+    background: var(--bg-card-hover);
+    transform: translateY(-1px);
+}
+
+.footer-bottom {
+    text-align: center;
+}
+
+.footer-bottom p {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+}
+
+/* ANIMATIONS */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.stagger-children .fade-in:nth-child(1) { transition-delay: 0s; }
+.stagger-children .fade-in:nth-child(2) { transition-delay: 0.1s; }
+.stagger-children .fade-in:nth-child(3) { transition-delay: 0.2s; }
+.stagger-children .fade-in:nth-child(4) { transition-delay: 0.3s; }
+.stagger-children .fade-in:nth-child(5) { transition-delay: 0.4s; }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+    .about-aside {
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .about-card {
+        flex: 1;
+        min-width: 200px;
+    }
+    .disclaimer {
+        flex-basis: 100%;
+    }
+    .education-wrapper {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    .nav-toggle {
+        display: flex;
+    }
+    .hero {
+        padding: 100px 0 60px;
+    }
+    .hero-title {
+        letter-spacing: 0.04em;
+    }
+    .hero-stats {
+        flex-direction: column;
+        gap: 24px;
+    }
+    .stat-divider {
+        width: 40px;
+        height: 1px;
+    }
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    .section-header {
+        margin-bottom: 40px;
+    }
+    .about,
+    .features,
+    .education {
+        padding: 80px 0;
+    }
+    .footer-top {
+        flex-direction: column;
+        gap: 24px;
+        text-align: center;
+    }
+    .footer-brand {
+        flex-direction: column;
+    }
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    .btn {
+        width: 100%;
+        max-width: 280px;
+    }
+    .about-aside {
+        flex-direction: column;
+    }
+    .form-card {
+        padding: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 16px;
+    }
+    .hero-badge {
+        font-size: 0.6rem;
+        padding: 6px 14px;
+    }
+    .section-tag {
+        font-size: 0.68rem;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="nav-logo">
+                <svg class="nav-logo-img" viewBox="0 0 280 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:36px;width:auto;">
+                    <defs>
+                        <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#ffffff"/>
+                            <stop offset="100%" style="stop-color:#c8c8d0"/>
+                        </linearGradient>
+                        <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#2563eb"/>
+                            <stop offset="100%" style="stop-color:#3b82f6"/>
+                        </linearGradient>
+                    </defs>
+                    <rect x="0" y="8" width="32" height="24" rx="4" stroke="url(#accentGrad)" stroke-width="1.5" fill="none"/>
+                    <polyline points="6,26 12,18 18,22 26,12" stroke="url(#accentGrad)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="26" cy="12" r="2" fill="#2563eb"/>
+                    <text x="42" y="28" font-family="Inter, -apple-system, sans-serif" font-size="20" font-weight="700" letter-spacing="3" fill="url(#textGrad)">ONLY A TRADER</text>
+                </svg>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#about">Hakkımızda</a></li>
+                <li><a href="#features">Analizler</a></li>
+                <li><a href="#education">Eğitimler</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Menü">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul class="mobile-menu-links">
+            <li><a href="#about">Hakkımızda</a></li>
+            <li><a href="#features">Analizler</a></li>
+            <li><a href="#education">Eğitimler</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <canvas id="heroCanvas"></canvas>
+        </div>
+        <div class="container hero-content">
+            <div class="hero-badge">Supply &amp; Demand &bull; Institutional Price Action</div>
+            <h1 class="hero-title">ONLY A TRADER</h1>
+            <p class="hero-subtitle">Supply &amp; Demand | Institutional Price Action</p>
+            <p class="hero-description">
+                Piyasayı tahmin etmiyoruz. Likiditeyi, arz-talep bölgelerini ve makro akışı okuyoruz.
+            </p>
+            <div class="hero-buttons">
+                <a href="#features" class="btn btn-primary">Analizleri Keşfet</a>
+                <a href="#education" class="btn btn-outline">Eğitimler (Çok Yakında)</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-value">20+</span>
+                    <span class="stat-label">Yıl Piyasa Tecrübesi</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-value">S&amp;D</span>
+                    <span class="stat-label">Arz &amp; Talep Odaklı</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-value">IPA</span>
+                    <span class="stat-label">Institutional Price Action</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Hakkımızda</span>
+                <h2 class="section-title">Piyasayı tahmin etmeye çalışmıyoruz.<br>Piyasayı <span class="text-accent">okuyoruz.</span></h2>
+            </div>
+            <div class="about-grid">
+                <div class="about-main">
+                    <p>
+                        Only a Trader, piyasayı tahmin etmeye çalışan bir platform değildir. Biz piyasayı okuruz.
+                    </p>
+                    <p>
+                        Kripto para piyasaları, altın ve gümüş gibi emtialar, forex pariteleri ve küresel endeksler&hellip;
+                        Tüm bu enstrümanları tek bir perspektiften inceleriz: <strong>kurumsal sermaye akışı ve likidite yapısı.</strong>
+                    </p>
+                    <p>
+                        Arz &amp; Talep bölgeleri, Order Block yapıları, likidite havuzları, QML formasyonları ve makro sermaye rotasyonları&hellip;
+                        Fiyatın neden hareket ettiğini anlamaya odaklanırız.
+                    </p>
+                    <p>
+                        20 yılı aşkın piyasa tecrübesiyle, teknik analizi yalnızca grafik çizmek olarak görmeyiz.
+                        Bizim için teknik analiz; <strong>psikoloji, sermaye akışı ve zamanlama disiplinidir.</strong>
+                    </p>
+                    <p>
+                        Only a Trader bir "hızlı kazanç" platformu değildir.
+                        <strong>Disiplin, risk yönetimi ve sabır</strong> üzerine inşa edilmiştir.
+                    </p>
+                </div>
+                <div class="about-aside">
+                    <div class="about-card">
+                        <div class="about-card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                                <path d="M12 6v6l4 2"/>
+                            </svg>
+                        </div>
+                        <h3>20+ Yıl</h3>
+                        <p>Piyasa tecrübesi ve disiplinli analiz yaklaşımı</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M3 3v18h18"/>
+                                <path d="M7 16l4-8 4 4 4-8"/>
+                            </svg>
+                        </div>
+                        <h3>Kurumsal Yaklaşım</h3>
+                        <p>Sermaye akışı ve likidite yapısı odaklı analiz</p>
+                    </div>
+                    <div class="disclaimer">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="12" y1="8" x2="12" y2="12"/>
+                            <line x1="12" y1="16" x2="12.01" y2="16"/>
+                        </svg>
+                        <p>Finansal tavsiye verilmez. Sorumluluk her zaman yatırımcının kendisine aittir.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Neler Bulacaksınız?</span>
+                <h2 class="section-title">Kurumsal perspektifle<br><span class="text-accent">piyasa analizi.</span></h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M3 3v18h18"/>
+                            <path d="M7 12l3-3 3 3 4-4"/>
+                            <circle cx="17" cy="8" r="1.5"/>
+                        </svg>
+                    </div>
+                    <h3>Kripto Analizleri</h3>
+                    <p>Bitcoin, Ethereum ve altcoin piyasalarında kurumsal sermaye akışını ve likidite bölgelerini takip eden derinlemesine teknik analizler.</p>
+                    <span class="feature-tag">Aktif</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon feature-icon-gold">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="9"/>
+                            <path d="M12 7v10M9 9h6M9 13h6"/>
+                        </svg>
+                    </div>
+                    <h3>Altın &amp; Gümüş Makro Analizi</h3>
+                    <p>Kıymetli metallerde makro ekonomik veriler, merkez bankası politikaları ve arz-talep dinamikleri üzerinden yapısal okuma.</p>
+                    <span class="feature-tag">Aktif</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+                        </svg>
+                    </div>
+                    <h3>Küresel Makro Perspektif</h3>
+                    <p>DXY, tahvil faizleri, sermaye rotasyonları ve küresel likidite akışlarının piyasalar üzerindeki etkisinin analizi.</p>
+                    <span class="feature-tag">Aktif</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M3 3v18h18"/>
+                            <path d="M7 16l4-8 4 4 4-8"/>
+                        </svg>
+                    </div>
+                    <h3>Forex &amp; Endeks Yapıları</h3>
+                    <p>Major forex pariteleri ve küresel endekslerde institutional price action yapıları, order block seviyeleri ve likidite haritalaması.</p>
+                    <span class="feature-tag">Aktif</span>
+                </div>
+                <div class="feature-card feature-card-coming">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/>
+                            <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
+                        </svg>
+                    </div>
+                    <h3>Eğitim İçerikleri</h3>
+                    <p>Supply &amp; Demand, Order Block, likidite yapıları ve kurumsal teknik analiz eğitim serisi.</p>
+                    <span class="feature-tag feature-tag-soon">Çok Yakında</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education" id="education">
+        <div class="container">
+            <div class="education-wrapper">
+                <div class="education-content">
+                    <span class="section-tag">Eğitim</span>
+                    <h2 class="section-title">Kurumsal Teknik Analiz Eğitimi<br><span class="text-accent">Yakında</span></h2>
+                    <p class="education-description">
+                        Gerçek piyasa yapısını anlamak isteyenler için. Supply &amp; Demand, Order Block,
+                        likidite havuzları ve kurumsal sermaye akışı&hellip; Kapsamlı eğitim içerikleri hazırlanıyor.
+                    </p>
+                    <div class="waitlist-features">
+                        <div class="waitlist-feature">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span>Supply &amp; Demand Temelleri</span>
+                        </div>
+                        <div class="waitlist-feature">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span>Order Block &amp; Likidite Yapıları</span>
+                        </div>
+                        <div class="waitlist-feature">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span>Makro Sermaye Rotasyonu</span>
+                        </div>
+                        <div class="waitlist-feature">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span>Risk Yönetimi &amp; Psikoloji</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="education-form">
+                    <div class="form-card">
+                        <h3>Bekleme Listesine Katılın</h3>
+                        <p>Eğitim içerikleri yayınlandığında ilk siz haberdar olun.</p>
+                        <form id="waitlistForm" class="waitlist-form">
+                            <div class="form-group">
+                                <input type="text" id="nameInput" placeholder="Adınız" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="emailInput" placeholder="E-posta adresiniz" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-full">Bekleme Listesine Katıl</button>
+                        </form>
+                        <p class="form-note">Spam göndermiyoruz. Yalnızca eğitim güncellemeleri.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <svg class="footer-logo-img" viewBox="0 0 280 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:30px;width:auto;">
+                        <defs>
+                            <linearGradient id="textGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#ffffff"/>
+                                <stop offset="100%" style="stop-color:#c8c8d0"/>
+                            </linearGradient>
+                            <linearGradient id="accentGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#2563eb"/>
+                                <stop offset="100%" style="stop-color:#3b82f6"/>
+                            </linearGradient>
+                        </defs>
+                        <rect x="0" y="8" width="32" height="24" rx="4" stroke="url(#accentGrad2)" stroke-width="1.5" fill="none"/>
+                        <polyline points="6,26 12,18 18,22 26,12" stroke="url(#accentGrad2)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="26" cy="12" r="2" fill="#2563eb"/>
+                        <text x="42" y="28" font-family="Inter, -apple-system, sans-serif" font-size="20" font-weight="700" letter-spacing="3" fill="url(#textGrad2)">ONLY A TRADER</text>
+                    </svg>
+                    <p class="footer-tagline">Supply &amp; Demand | Institutional Price Action</p>
+                </div>
+                <div class="footer-social">
+                    <a href="https://x.com/Only_a_Trader" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="X (Twitter)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </a>
+                    <a href="https://t.me/Onlya_Trader" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Telegram">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                        </svg>
+                    </a>
+                    <a href="https://instagram.com/onlyatrader" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Only a Trader. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+/* ============================================
+   ONLY A TRADER - Main JavaScript
+   ============================================ */
+
+document.addEventListener('DOMContentLoaded', () => {
+    initNavbar();
+    initMobileMenu();
+    initScrollAnimations();
+    initHeroCanvas();
+    initWaitlistForm();
+});
+
+function initNavbar() {
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 40) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    }, { passive: true });
+}
+
+function initMobileMenu() {
+    const toggle = document.getElementById('navToggle');
+    const menu = document.getElementById('mobileMenu');
+    if (!toggle || !menu) return;
+
+    toggle.addEventListener('click', () => {
+        toggle.classList.toggle('active');
+        menu.classList.toggle('active');
+        document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+    });
+
+    menu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            toggle.classList.remove('active');
+            menu.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    });
+}
+
+function initScrollAnimations() {
+    const selectors = [
+        '.section-header',
+        '.about-main p',
+        '.about-card',
+        '.disclaimer',
+        '.feature-card',
+        '.education-content',
+        '.form-card',
+        '.hero-stats'
+    ];
+
+    selectors.forEach(selector => {
+        document.querySelectorAll(selector).forEach(el => {
+            el.classList.add('fade-in');
+        });
+    });
+
+    document.querySelectorAll('.features-grid, .about-aside').forEach(el => {
+        el.classList.add('stagger-children');
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+}
+
+function initHeroCanvas() {
+    const canvas = document.getElementById('heroCanvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    let animationId;
+    let time = 0;
+
+    function resize() {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.parentElement.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        ctx.scale(dpr, dpr);
+        canvas.style.width = rect.width + 'px';
+        canvas.style.height = rect.height + 'px';
+    }
+
+    function drawCandlestickChart(yBase, amplitude, speed, opacity) {
+        const w = canvas.width / (window.devicePixelRatio || 1);
+        const segments = 60;
+        const segWidth = w / segments;
+
+        ctx.strokeStyle = 'rgba(37, 99, 235, ' + (opacity * 0.3) + ')';
+        ctx.lineWidth = 0.5;
+
+        ctx.beginPath();
+        for (let i = 0; i <= segments; i++) {
+            const x = i * segWidth;
+            const noise = Math.sin(i * 0.3 + time * speed) * amplitude
+                        + Math.sin(i * 0.7 + time * speed * 0.5) * amplitude * 0.5
+                        + Math.sin(i * 0.15 + time * speed * 0.3) * amplitude * 0.8;
+            const y = yBase + noise;
+
+            if (i === 0) {
+                ctx.moveTo(x, y);
+            } else {
+                ctx.lineTo(x, y);
+            }
+        }
+        ctx.stroke();
+
+        for (let i = 2; i < segments; i += 3) {
+            const x = i * segWidth;
+            const noise = Math.sin(i * 0.3 + time * speed) * amplitude
+                        + Math.sin(i * 0.7 + time * speed * 0.5) * amplitude * 0.5;
+            const y = yBase + noise;
+            const candleHeight = Math.sin(i * 0.5 + time * speed * 0.3) * amplitude * 0.4;
+
+            ctx.fillStyle = candleHeight > 0
+                ? 'rgba(37, 99, 235, ' + (opacity * 0.15) + ')'
+                : 'rgba(217, 119, 6, ' + (opacity * 0.12) + ')';
+
+            ctx.fillRect(x - 1.5, y, 3, candleHeight);
+
+            ctx.strokeStyle = 'rgba(255, 255, 255, ' + (opacity * 0.06) + ')';
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(x, y - Math.abs(candleHeight) * 0.3);
+            ctx.lineTo(x, y + candleHeight + Math.abs(candleHeight) * 0.3);
+            ctx.stroke();
+        }
+    }
+
+    function drawGrid(opacity) {
+        const w = canvas.width / (window.devicePixelRatio || 1);
+        const h = canvas.height / (window.devicePixelRatio || 1);
+
+        ctx.strokeStyle = 'rgba(255, 255, 255, ' + opacity + ')';
+        ctx.lineWidth = 0.3;
+
+        for (let y = 0; y < h; y += 80) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(w, y);
+            ctx.stroke();
+        }
+
+        for (let x = 0; x < w; x += 80) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, h);
+            ctx.stroke();
+        }
+    }
+
+    function animate() {
+        const w = canvas.width / (window.devicePixelRatio || 1);
+        const h = canvas.height / (window.devicePixelRatio || 1);
+
+        ctx.clearRect(0, 0, w, h);
+        drawGrid(0.015);
+        drawCandlestickChart(h * 0.3, 30, 0.008, 0.6);
+        drawCandlestickChart(h * 0.55, 25, 0.006, 0.4);
+        drawCandlestickChart(h * 0.75, 20, 0.01, 0.3);
+
+        time++;
+        animationId = requestAnimationFrame(animate);
+    }
+
+    resize();
+    animate();
+
+    window.addEventListener('resize', () => {
+        resize();
+    });
+
+    const heroObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (!animationId) animate();
+            } else {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            }
+        });
+    });
+
+    heroObserver.observe(canvas.parentElement.parentElement);
+}
+
+function initWaitlistForm() {
+    const form = document.getElementById('waitlistForm');
+    if (!form) return;
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('nameInput').value.trim();
+        const email = document.getElementById('emailInput').value.trim();
+
+        if (!name || !email) return;
+
+        const btn = form.querySelector('button[type="submit"]');
+        const originalText = btn.textContent;
+
+        btn.textContent = 'Kaydedildi!';
+        btn.style.background = '#10b981';
+        btn.disabled = true;
+
+        form.reset();
+
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.style.background = '';
+            btn.disabled = false;
+        }, 3000);
+    });
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            const offset = 80;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+    </script>
+</body>
+</html>
