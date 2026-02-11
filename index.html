@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Only a Trader - Supply & Demand | Institutional Price Action. Piyasayı tahmin etmiyoruz. Likiditeyi, arz-talep bölgelerini ve makro akışı okuyoruz.">
+    <title>Only a Trader | Institutional Price Action</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="nav-logo">
+                <!-- Replace src with your actual logo file: assets/logo.jpg -->
+                <img src="assets/logo.svg" alt="Only a Trader" class="nav-logo-img">
+            </a>
+            <ul class="nav-links">
+                <li><a href="#about">Hakkımızda</a></li>
+                <li><a href="#features">Analizler</a></li>
+                <li><a href="#education">Eğitimler</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Menü">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul class="mobile-menu-links">
+            <li><a href="#about">Hakkımızda</a></li>
+            <li><a href="#features">Analizler</a></li>
+            <li><a href="#education">Eğitimler</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <canvas id="heroCanvas"></canvas>
+        </div>
+        <div class="container hero-content">
+            <div class="hero-badge">Supply &amp; Demand &bull; Institutional Price Action</div>
+            <h1 class="hero-title">ONLY A TRADER</h1>
+            <p class="hero-subtitle">Supply &amp; Demand | Institutional Price Action</p>
+            <p class="hero-description">
+                Piyasayı tahmin etmiyoruz. Likiditeyi, arz-talep bölgelerini ve makro akışı okuyoruz.
+            </p>
+            <div class="hero-buttons">
+                <a href="#features" class="btn btn-primary">Analizleri Keşfet</a>
+                <a href="#education" class="btn btn-outline">Eğitimler (Çok Yakında)</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-value">20+</span>
+                    <span class="stat-label">Yıl Piyasa Tecrübesi</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-value">S&amp;D</span>
+                    <span class="stat-label">Arz &amp; Talep Odaklı</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-value">IPA</span>
+                    <span class="stat-label">Institutional Price Action</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Hakkımızda</span>
+                <h2 class="section-title">Piyasayı tahmin etmeye çalışmıyoruz.<br>Piyasayı <span class="text-accent">okuyoruz.</span></h2>
+            </div>
+            <div class="about-grid">
+                <div class="about-main">
+                    <p>
+                        Only a Trader, piyasayı tahmin etmeye çalışan bir platform değildir. Biz piyasayı okuruz.
+                    </p>
+                    <p>
+                        Kripto para piyasaları, altın ve gümüş gibi emtialar, forex pariteleri ve küresel endeksler&hellip;
+                        Tüm bu enstrümanları tek bir perspektiften inceleriz: <strong>kurumsal sermaye akışı ve likidite yapısı.</strong>
+                    </p>
+                    <p>
+                        Arz &amp; Talep bölgeleri, Order Block yapıları, likidite havuzları, QML formasyonları ve makro sermaye rotasyonları&hellip;
+                        Fiyatın neden hareket ettiğini anlamaya odaklanırız.
+                    </p>
+                    <p>
+                        20 yılı aşkın piyasa tecrübesiyle, teknik analizi yalnızca grafik çizmek olarak görmeyiz.
+                        Bizim için teknik analiz; <strong>psikoloji, sermaye akışı ve zamanlama disiplinidir.</strong>
+                    </p>
+                    <p>
+                        Only a Trader bir "hızlı kazanç" platformu değildir.
+                        <strong>Disiplin, risk yönetimi ve sabır</strong> üzerine inşa edilmiştir.
+                    </p>
+                </div>
+                <div class="about-aside">
+                    <div class="about-card">
+                        <div class="about-card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                                <path d="M12 6v6l4 2"/>
+                            </svg>
+                        </div>
+                        <h3>20+ Yıl</h3>
+                        <p>Piyasa tecrübesi ve disiplinli analiz yaklaşımı</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M3 3v18h18"/>
+                                <path d="M7 16l4-8 4 4 4-8"/>
+                            </svg>
+                        </div>
+                        <h3>Kurumsal Yaklaşım</h3>
+                        <p>Sermaye akışı ve likidite yapısı odaklı analiz</p>
+                    </div>
+                    <div class="disclaimer">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="12" y1="8" x2="12" y2="12"/>
+                            <line x1="12" y1="16" x2="12.01" y2="16"/>
+                        </svg>
+                        <p>Finansal tavsiye verilmez. Sorumluluk her zaman yatırımcının kendisine aittir.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Neler Bulacaksınız?</span>
+                <h2 class="section-title">Kurumsal perspektifle<br><span class="text-accent">piyasa analizi.</span></h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M3 3v18h18"/>
+                            <path d="M7 12l3-3 3 3 4-4"/>
+                            <circle cx="17" cy="8" r="1.5"/>
+                        </svg>
+                    </div>
+                    <h3>Kripto Analizleri</h3>
+                    <p>Bitcoin, Ethereum ve altcoin piyasalarında kurumsal sermaye akışını ve likidite bölgelerini takip eden derinlemesine teknik analizler.</p>
+                    <span class="feature-tag">Aktif</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon feature-icon-gold">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="9"/>
+                            <path d="M12 7v10M9 9h6M9 13h6"/>
+                        </svg>
+                    </div>
+                    <h3>Altın &amp; Gümüş Makro Analizi</h3>
+                    <p>Kıymetli metallerde makro ekonomik veriler, merkez bankası politikaları ve arz-talep dinamikleri üzerinden yapısal okuma.</p>
+                    <span class="feature-tag">Aktif</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+                        </svg>
+                    </div>
+                    <h3>Küresel Makro Perspektif</h3>
+                    <p>DXY, tahvil faizleri, sermaye rotasyonları ve küresel likidite akışlarının piyasalar üzerindeki etkisinin analizi.</p>
+                    <span class="feature-tag">Aktif</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M3 3v18h18"/>
+                            <path d="M7 16l4-8 4 4 4-8"/>
+                        </svg>
+                    </div>
+                    <h3>Forex &amp; Endeks Yapıları</h3>
+                    <p>Major forex pariteleri ve küresel endekslerde institutional price action yapıları, order block seviyeleri ve likidite haritalaması.</p>
+                    <span class="feature-tag">Aktif</span>
+                </div>
+                <div class="feature-card feature-card-coming">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/>
+                            <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
+                        </svg>
+                    </div>
+                    <h3>Eğitim İçerikleri</h3>
+                    <p>Supply &amp; Demand, Order Block, likidite yapıları ve kurumsal teknik analiz eğitim serisi.</p>
+                    <span class="feature-tag feature-tag-soon">Çok Yakında</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education" id="education">
+        <div class="container">
+            <div class="education-wrapper">
+                <div class="education-content">
+                    <span class="section-tag">Eğitim</span>
+                    <h2 class="section-title">Kurumsal Teknik Analiz Eğitimi<br><span class="text-accent">Yakında</span></h2>
+                    <p class="education-description">
+                        Gerçek piyasa yapısını anlamak isteyenler için. Supply &amp; Demand, Order Block,
+                        likidite havuzları ve kurumsal sermaye akışı&hellip; Kapsamlı eğitim içerikleri hazırlanıyor.
+                    </p>
+                    <div class="waitlist-features">
+                        <div class="waitlist-feature">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span>Supply &amp; Demand Temelleri</span>
+                        </div>
+                        <div class="waitlist-feature">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span>Order Block &amp; Likidite Yapıları</span>
+                        </div>
+                        <div class="waitlist-feature">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span>Makro Sermaye Rotasyonu</span>
+                        </div>
+                        <div class="waitlist-feature">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span>Risk Yönetimi &amp; Psikoloji</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="education-form">
+                    <div class="form-card">
+                        <h3>Bekleme Listesine Katılın</h3>
+                        <p>Eğitim içerikleri yayınlandığında ilk siz haberdar olun.</p>
+                        <form id="waitlistForm" class="waitlist-form">
+                            <div class="form-group">
+                                <input type="text" id="nameInput" placeholder="Adınız" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="emailInput" placeholder="E-posta adresiniz" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-full">Bekleme Listesine Katıl</button>
+                        </form>
+                        <p class="form-note">Spam göndermiyoruz. Yalnızca eğitim güncellemeleri.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <img src="assets/logo.svg" alt="Only a Trader" class="footer-logo-img">
+                    <p class="footer-tagline">Supply &amp; Demand | Institutional Price Action</p>
+                </div>
+                <div class="footer-social">
+                    <a href="https://x.com/Only_a_Trader" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="X (Twitter)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </a>
+                    <a href="https://t.me/Onlya_Trader" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Telegram">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                        </svg>
+                    </a>
+                    <a href="https://instagram.com/onlyatrader" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Only a Trader. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
