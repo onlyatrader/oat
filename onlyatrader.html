@@ -972,7 +972,7 @@ img {
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
             <a href="#" class="nav-logo">
-                <svg class="nav-logo-img" viewBox="0 0 280 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:36px;width:auto;">
+                <svg class="nav-logo-img" viewBox="0 0 280 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:36px;width:auto;">
                     <defs>
                         <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                             <stop offset="0%" style="stop-color:#ffffff"/>
@@ -982,15 +982,20 @@ img {
                             <stop offset="0%" style="stop-color:#2563eb"/>
                             <stop offset="100%" style="stop-color:#3b82f6"/>
                         </linearGradient>
+                        <clipPath id="clipL">
+                            <rect x="0" y="0" width="13" height="36"/>
+                            <rect x="13" y="16" width="24" height="20"/>
+                        </clipPath>
+                        <clipPath id="clipR">
+                            <rect x="21" y="0" width="16" height="36"/>
+                            <rect x="0" y="0" width="21" height="16"/>
+                        </clipPath>
                     </defs>
-                    <!-- Left chain link -->
-                    <rect x="1" y="10" width="14" height="20" rx="7" stroke="url(#accentGrad)" stroke-width="1.8" fill="none"/>
-                    <!-- Right chain link -->
-                    <rect x="11" y="6" width="14" height="20" rx="7" stroke="url(#accentGrad)" stroke-width="1.8" fill="none"/>
-                    <!-- Overlap mask fill to show interlocking -->
-                    <line x1="11" y1="14" x2="15" y2="14" stroke="url(#accentGrad)" stroke-width="1.8" stroke-linecap="round"/>
-                    <line x1="11" y1="22" x2="15" y2="22" stroke="url(#accentGrad)" stroke-width="1.8" stroke-linecap="round"/>
-                    <text x="36" y="26" font-family="Inter, -apple-system, sans-serif" font-size="18" font-weight="700" letter-spacing="3" fill="url(#textGrad)">ONLY A TRADER</text>
+                    <!-- Left chain link (horizontal) -->
+                    <rect clip-path="url(#clipL)" x="1" y="10" width="20" height="12" rx="6" stroke="url(#accentGrad)" stroke-width="2" fill="none"/>
+                    <!-- Right chain link (horizontal) -->
+                    <rect clip-path="url(#clipR)" x="13" y="10" width="20" height="12" rx="6" stroke="url(#accentGrad)" stroke-width="2" fill="none"/>
+                    <text x="40" y="24" font-family="Inter, -apple-system, sans-serif" font-size="18" font-weight="700" letter-spacing="3" fill="url(#textGrad)">ONLY A TRADER</text>
                 </svg>
             </a>
             <ul class="nav-links">
@@ -1260,7 +1265,7 @@ img {
         <div class="container">
             <div class="footer-top">
                 <div class="footer-brand">
-                    <svg class="footer-logo-img" viewBox="0 0 280 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:30px;width:auto;">
+                    <svg class="footer-logo-img" viewBox="0 0 280 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:30px;width:auto;">
                         <defs>
                             <linearGradient id="textGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
                                 <stop offset="0%" style="stop-color:#ffffff"/>
@@ -1270,14 +1275,20 @@ img {
                                 <stop offset="0%" style="stop-color:#2563eb"/>
                                 <stop offset="100%" style="stop-color:#3b82f6"/>
                             </linearGradient>
+                            <clipPath id="clipL2">
+                                <rect x="0" y="0" width="13" height="36"/>
+                                <rect x="13" y="16" width="24" height="20"/>
+                            </clipPath>
+                            <clipPath id="clipR2">
+                                <rect x="21" y="0" width="16" height="36"/>
+                                <rect x="0" y="0" width="21" height="16"/>
+                            </clipPath>
                         </defs>
-                        <!-- Left chain link -->
-                        <rect x="1" y="10" width="14" height="20" rx="7" stroke="url(#accentGrad2)" stroke-width="1.8" fill="none"/>
-                        <!-- Right chain link -->
-                        <rect x="11" y="6" width="14" height="20" rx="7" stroke="url(#accentGrad2)" stroke-width="1.8" fill="none"/>
-                        <line x1="11" y1="14" x2="15" y2="14" stroke="url(#accentGrad2)" stroke-width="1.8" stroke-linecap="round"/>
-                        <line x1="11" y1="22" x2="15" y2="22" stroke="url(#accentGrad2)" stroke-width="1.8" stroke-linecap="round"/>
-                        <text x="36" y="26" font-family="Inter, -apple-system, sans-serif" font-size="18" font-weight="700" letter-spacing="3" fill="url(#textGrad2)">ONLY A TRADER</text>
+                        <!-- Left chain link (horizontal) -->
+                        <rect clip-path="url(#clipL2)" x="1" y="10" width="20" height="12" rx="6" stroke="url(#accentGrad2)" stroke-width="2" fill="none"/>
+                        <!-- Right chain link (horizontal) -->
+                        <rect clip-path="url(#clipR2)" x="13" y="10" width="20" height="12" rx="6" stroke="url(#accentGrad2)" stroke-width="2" fill="none"/>
+                        <text x="40" y="24" font-family="Inter, -apple-system, sans-serif" font-size="18" font-weight="700" letter-spacing="3" fill="url(#textGrad2)">ONLY A TRADER</text>
                     </svg>
                     <p class="footer-tagline">Supply &amp; Demand | Institutional Price Action</p>
                 </div>

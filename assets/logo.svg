@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270 36" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 36" fill="none">
   <defs>
     <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" style="stop-color:#ffffff"/>
@@ -8,14 +8,21 @@
       <stop offset="0%" style="stop-color:#2563eb"/>
       <stop offset="100%" style="stop-color:#3b82f6"/>
     </linearGradient>
+    <!-- Clip for left link: hide top portion in overlap zone -->
+    <clipPath id="clipL">
+      <rect x="0" y="0" width="13" height="36"/>
+      <rect x="13" y="16" width="24" height="20"/>
+    </clipPath>
+    <!-- Clip for right link: hide bottom portion in overlap zone -->
+    <clipPath id="clipR">
+      <rect x="21" y="0" width="16" height="36"/>
+      <rect x="0" y="0" width="21" height="16"/>
+    </clipPath>
   </defs>
-  <!-- Left chain link -->
-  <rect x="1" y="10" width="14" height="20" rx="7" stroke="url(#accentGrad)" stroke-width="1.8" fill="none"/>
-  <!-- Right chain link -->
-  <rect x="11" y="6" width="14" height="20" rx="7" stroke="url(#accentGrad)" stroke-width="1.8" fill="none"/>
-  <!-- Interlocking detail -->
-  <line x1="11" y1="14" x2="15" y2="14" stroke="url(#accentGrad)" stroke-width="1.8" stroke-linecap="round"/>
-  <line x1="11" y1="22" x2="15" y2="22" stroke="url(#accentGrad)" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- Left chain link (horizontal) -->
+  <rect clip-path="url(#clipL)" x="1" y="10" width="20" height="12" rx="6" stroke="url(#accentGrad)" stroke-width="2" fill="none"/>
+  <!-- Right chain link (horizontal) -->
+  <rect clip-path="url(#clipR)" x="13" y="10" width="20" height="12" rx="6" stroke="url(#accentGrad)" stroke-width="2" fill="none"/>
   <!-- Text -->
-  <text x="36" y="26" font-family="Inter, -apple-system, sans-serif" font-size="18" font-weight="700" letter-spacing="3" fill="url(#textGrad)">ONLY A TRADER</text>
+  <text x="40" y="24" font-family="Inter, -apple-system, sans-serif" font-size="18" font-weight="700" letter-spacing="3" fill="url(#textGrad)">ONLY A TRADER</text>
 </svg>
