@@ -604,6 +604,19 @@ img {
     gap: 20px;
 }
 
+.feature-card-link {
+    display: block;
+    color: inherit;
+}
+
+.feature-card-link .feature-link-text {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 0.82rem;
+    color: var(--accent-blue);
+    font-weight: 500;
+}
+
 .feature-card {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
