@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bitcoin, Ethereum ve Top 100 Altcoin anlık fiyatları, Korku & Açgözlülük Endeksi, Bitcoin ETF ve ETH ETF Tracker.">
+    <title>Bitcoin & Altcoin Piyasa Verileri | Only a Trader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+:root {
+    --bg-primary: #050507;
+    --bg-secondary: #0a0a0f;
+    --bg-surface: #0f0f16;
+    --bg-card: #12121c;
+    --bg-card-hover: #161622;
+    --bg-elevated: #1a1a28;
+    --text-primary: #e8e8ed;
+    --text-secondary: #8888a0;
+    --text-muted: #55556a;
+    --accent-blue: #2563eb;
+    --accent-blue-dim: rgba(37, 99, 235, 0.15);
+    --accent-gold: #c9a227;
+    --accent-gold-dim: rgba(201, 162, 39, 0.15);
+    --accent-green: #10b981;
+    --border-color: rgba(255, 255, 255, 0.06);
+    --border-hover: rgba(255, 255, 255, 0.12);
+    --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.4);
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body { font-family: var(--font-main); background: var(--bg-primary); color: var(--text-primary); line-height: 1.7; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; transition: color var(--transition); }
+
+.container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+/* NAV */
+.navbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 16px 0;
+    background: rgba(5, 5, 7, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-color);
+}
+.nav-container { display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { display: flex; align-items: center; }
+.nav-right { display: flex; align-items: center; gap: 24px; }
+.back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.82rem; color: var(--text-muted);
+    padding: 6px 14px; border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    transition: all var(--transition);
+}
+.back-link:hover { color: var(--text-primary); border-color: var(--border-hover); }
+.back-link svg { width: 16px; height: 16px; }
+
+/* PAGE HEADER */
+.page-header {
+    padding: 120px 0 40px;
+    text-align: center;
+}
+.page-header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+}
+.page-header h1 span { color: var(--accent-blue); }
+.page-subtitle {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+.live-dot {
+    display: inline-block; width: 8px; height: 8px;
+    background: #16c784; border-radius: 50%;
+    margin-right: 6px; animation: pulse 2s infinite;
+}
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+/* DASHBOARD GRID */
+.dashboard-top {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.dashboard-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    transition: border-color var(--transition);
+}
+.dashboard-card:hover { border-color: var(--border-hover); }
+
+.dash-card-title {
+    font-size: 0.8rem; font-weight: 600;
+    color: var(--text-muted); text-transform: uppercase;
+    letter-spacing: 1.5px; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 8px;
+}
+.dash-card-title svg { color: var(--accent-blue); flex-shrink: 0; }
+
+/* FEAR & GREED */
+.fear-greed-gauge {
+    display: flex; justify-content: center; align-items: center;
+    min-height: 160px;
+}
+.gauge-svg { max-width: 260px; width: 100%; }
+.gauge-loading {
+    color: var(--text-muted); font-size: 0.85rem;
+    text-align: center; padding: 40px 0;
+}
+.fg-update {
+    text-align: center; margin-top: 8px;
+    font-size: 0.72rem; color: var(--text-muted);
+}
+
+/* MARKET STATS */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+.stat-item {
+    display: flex; flex-direction: column; gap: 4px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+.stat-label {
+    font-size: 0.7rem; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 1px;
+}
+.stat-value {
+    font-size: 1.15rem; font-weight: 700;
+    color: var(--text-primary); font-family: var(--font-mono);
+}
+.stat-change { font-size: 0.78rem; font-weight: 600; font-family: var(--font-mono); }
+.stat-change.up { color: #16c784; }
+.stat-change.down { color: #ea3943; }
+
+/* ETF SECTION */
+.etf-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.etf-card .dash-card-title svg { color: var(--accent-gold); }
+
+.etf-summary {
+    display: flex; gap: 16px; margin-bottom: 16px;
+    padding-bottom: 16px; border-bottom: 1px solid var(--border-color);
+}
+.etf-summary-item {
+    display: flex; flex-direction: column; gap: 2px; flex: 1;
+}
+.etf-summary-label { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.etf-summary-value { font-size: 1rem; font-weight: 700; font-family: var(--font-mono); color: var(--text-primary); }
+.etf-summary-value.flow-positive { color: #16c784; }
+.etf-summary-value.flow-negative { color: #ea3943; }
+
+.etf-table { display: flex; flex-direction: column; }
+.etf-table-header {
+    display: grid;
+    grid-template-columns: 68px 1fr 110px 100px;
+    gap: 8px; padding: 8px 12px;
+    font-size: 0.68rem; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 1px;
+    border-bottom: 1px solid var(--border-color);
+}
+.etf-table-row {
+    display: grid;
+    grid-template-columns: 68px 1fr 110px 100px;
+    gap: 8px; padding: 10px 12px;
+    font-size: 0.82rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    transition: background var(--transition);
+    align-items: center;
+}
+.etf-table-row:last-child { border-bottom: none; }
+.etf-table-row:hover { background: rgba(255, 255, 255, 0.02); }
+
+.etf-ticker { font-weight: 700; color: var(--accent-blue); font-family: var(--font-mono); }
+.etf-name { color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.etf-issuer { color: var(--text-muted); font-size: 0.78rem; }
+.etf-flow { font-family: var(--font-mono); font-weight: 600; font-size: 0.8rem; text-align: right; }
+.etf-flow.positive { color: #16c784; }
+.etf-flow.negative { color: #ea3943; }
+.etf-flow.neutral { color: var(--text-muted); }
+
+.etf-source {
+    margin-top: 12px; padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    font-size: 0.68rem; color: var(--text-muted);
+    display: flex; align-items: center; gap: 4px;
+}
+.etf-source a { color: var(--accent-blue); }
+.etf-source a:hover { text-decoration: underline; }
+
+/* CRYPTO TABLE */
+.table-header-row {
+    display: flex; align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px; gap: 16px; flex-wrap: wrap;
+}
+.crypto-search {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 8px 16px; color: var(--text-primary);
+    font-size: 0.85rem; font-family: inherit;
+    outline: none; transition: border-color var(--transition);
+    width: 240px;
+}
+.crypto-search:focus { border-color: var(--accent-blue); }
+.crypto-search::placeholder { color: var(--text-muted); }
+
+.crypto-table-wrap {
+    overflow-x: auto; max-height: 700px; overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.crypto-table-wrap::-webkit-scrollbar { width: 4px; }
+.crypto-table-wrap::-webkit-scrollbar-track { background: transparent; }
+.crypto-table-wrap::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+
+.crypto-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.crypto-table thead th {
+    text-align: left; padding: 12px 10px;
+    font-size: 0.68rem; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 1px;
+    font-weight: 600; border-bottom: 1px solid var(--border-color);
+    white-space: nowrap; position: sticky; top: 0;
+    background: var(--bg-card); z-index: 1;
+}
+.crypto-table tbody tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    transition: background var(--transition);
+}
+.crypto-table tbody tr:hover { background: rgba(255, 255, 255, 0.02); }
+.crypto-table td {
+    padding: 12px 10px; white-space: nowrap;
+    color: var(--text-secondary);
+    font-family: var(--font-mono); font-size: 0.8rem;
+}
+
+.td-coin {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-main);
+}
+.td-coin img { border-radius: 50%; flex-shrink: 0; }
+.coin-info { display: flex; flex-direction: column; gap: 1px; }
+.coin-name { color: var(--text-primary); font-weight: 600; font-size: 0.85rem; }
+.coin-symbol { color: var(--text-muted); font-size: 0.7rem; font-family: var(--font-mono); }
+
+.price-up { color: #16c784 !important; font-weight: 600; }
+.price-down { color: #ea3943 !important; font-weight: 600; }
+.td-price { font-weight: 600; color: var(--text-primary) !important; }
+.sparkline-svg { display: block; }
+
+/* FOOTER */
+.footer {
+    margin-top: 60px; padding: 32px 0;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+.footer p { font-size: 0.78rem; color: var(--text-muted); }
+.footer a { color: var(--accent-blue); }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .etf-table-header, .etf-table-row {
+        grid-template-columns: 60px 1fr 100px 90px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-top, .etf-section { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .page-header h1 { font-size: 1.6rem; }
+    .td-hide-mobile, .th-hide-mobile { display: none; }
+    .etf-table-header, .etf-table-row {
+        grid-template-columns: 56px 1fr 90px;
+        font-size: 0.78rem;
+    }
+    .etf-col-issuer { display: none; }
+}
+
+@media (max-width: 480px) {
+    .container { padding: 0 16px; }
+    .td-hide-tablet, .th-hide-tablet { display: none; }
+    .crypto-search { width: 100%; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .etf-summary { flex-direction: column; gap: 10px; }
+}
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="onlyatrader.html" class="nav-logo">
+                <svg viewBox="0 0 280 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:32px;width:auto;">
+                    <defs>
+                        <linearGradient id="tg" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#ffffff"/>
+                            <stop offset="100%" style="stop-color:#c8c8d0"/>
+                        </linearGradient>
+                        <linearGradient id="ag" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#2563eb"/>
+                            <stop offset="100%" style="stop-color:#3b82f6"/>
+                        </linearGradient>
+                        <clipPath id="cL"><rect x="0" y="0" width="13" height="36"/><rect x="13" y="16" width="24" height="20"/></clipPath>
+                        <clipPath id="cR"><rect x="21" y="0" width="16" height="36"/><rect x="0" y="0" width="21" height="16"/></clipPath>
+                    </defs>
+                    <rect clip-path="url(#cL)" x="1" y="10" width="20" height="12" rx="6" stroke="url(#ag)" stroke-width="2" fill="none"/>
+                    <rect clip-path="url(#cR)" x="13" y="10" width="20" height="12" rx="6" stroke="url(#ag)" stroke-width="2" fill="none"/>
+                    <text x="40" y="24" font-family="Inter, sans-serif" font-size="18" font-weight="700" letter-spacing="3" fill="url(#tg)">ONLY A TRADER</text>
+                </svg>
+            </a>
+            <div class="nav-right">
+                <a href="onlyatrader.html" class="back-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+                    Ana Sayfa
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1>Bitcoin &amp; Altcoin <span>Piyasa Verileri</span></h1>
+            <p class="page-subtitle"><span class="live-dot"></span>Veriler anlık olarak güncellenmektedir</p>
+        </div>
+    </div>
+
+    <main>
+        <div class="container">
+
+            <!-- Row 1: Fear & Greed + Market Overview -->
+            <div class="dashboard-top">
+                <div class="dashboard-card">
+                    <h3 class="dash-card-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        Korku &amp; Açgözlülük Endeksi
+                    </h3>
+                    <div id="fearGreedGauge" class="fear-greed-gauge">
+                        <div class="gauge-loading">Yükleniyor...</div>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <h3 class="dash-card-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M7 12l3-3 3 3 4-4"/></svg>
+                        Piyasa Özeti
+                    </h3>
+                    <div id="marketStats" class="stats-grid">
+                        <div class="gauge-loading">Yükleniyor...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2: ETF Trackers -->
+            <div class="etf-section">
+                <div class="dashboard-card etf-card">
+                    <h3 class="dash-card-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M9.5 8h3c1.1 0 2 .9 2 2s-.9 2-2 2h-3m0-4v8m0-4h3.5c1.1 0 2 .9 2 2s-.9 2-2 2H9.5M12 6v2m0 8v2"/></svg>
+                        Bitcoin Spot ETF Tracker
+                    </h3>
+                    <div id="btcEtfSummary" class="etf-summary">
+                        <div class="etf-summary-item">
+                            <span class="etf-summary-label">Günlük Net Akış</span>
+                            <span class="etf-summary-value" id="btcDailyFlow">—</span>
+                        </div>
+                        <div class="etf-summary-item">
+                            <span class="etf-summary-label">Toplam Net Akış</span>
+                            <span class="etf-summary-value" id="btcTotalFlow">—</span>
+                        </div>
+                        <div class="etf-summary-item">
+                            <span class="etf-summary-label">Toplam AUM</span>
+                            <span class="etf-summary-value" id="btcTotalAum">—</span>
+                        </div>
+                    </div>
+                    <div id="btcEtfList"></div>
+                    <div class="etf-source">
+                        Veri kaynağı: <a href="https://www.coinglass.com/bitcoin-etf" target="_blank" rel="noopener">CoinGlass</a>
+                    </div>
+                </div>
+                <div class="dashboard-card etf-card">
+                    <h3 class="dash-card-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L4 14l8 5 8-5L12 2z"/><path d="M4 14l8 5 8-5"/></svg>
+                        Ethereum Spot ETF Tracker
+                    </h3>
+                    <div id="ethEtfSummary" class="etf-summary">
+                        <div class="etf-summary-item">
+                            <span class="etf-summary-label">Günlük Net Akış</span>
+                            <span class="etf-summary-value" id="ethDailyFlow">—</span>
+                        </div>
+                        <div class="etf-summary-item">
+                            <span class="etf-summary-label">Toplam Net Akış</span>
+                            <span class="etf-summary-value" id="ethTotalFlow">—</span>
+                        </div>
+                        <div class="etf-summary-item">
+                            <span class="etf-summary-label">Toplam AUM</span>
+                            <span class="etf-summary-value" id="ethTotalAum">—</span>
+                        </div>
+                    </div>
+                    <div id="ethEtfList"></div>
+                    <div class="etf-source">
+                        Veri kaynağı: <a href="https://www.coinglass.com/ethereum-etf" target="_blank" rel="noopener">CoinGlass</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 3: Top 100 Crypto Table -->
+            <div class="dashboard-card">
+                <div class="table-header-row">
+                    <h3 class="dash-card-title" style="margin-bottom:0">Top 100 Kripto Para</h3>
+                    <input type="text" class="crypto-search" id="cryptoSearch" placeholder="Coin ara...">
+                </div>
+                <div class="crypto-table-wrap">
+                    <table class="crypto-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Coin</th>
+                                <th>Fiyat</th>
+                                <th>24s %</th>
+                                <th>7g %</th>
+                                <th class="th-hide-mobile">Piyasa Değeri</th>
+                                <th class="th-hide-mobile">Hacim (24s)</th>
+                                <th class="th-hide-tablet">Son 7 Gün</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cryptoTableBody">
+                            <tr><td colspan="8" class="gauge-loading">Veri yükleniyor...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 <a href="onlyatrader.html">Only a Trader</a>. Tüm hakları saklıdır. Finansal tavsiye verilmez.</p>
+        </div>
+    </footer>
+
+    <script>
+const Dashboard = {
+    coins: [],
+    global: null,
+    fearGreed: null,
+
+    init() {
+        this.fetchAll();
+        this.setupSearch();
+        this.renderETFTables();
+        this.fetchETFFlows();
+        setInterval(() => this.fetchAll(), 60000);
+        setInterval(() => this.fetchETFFlows(), 300000);
+    },
+
+    async fetchAll() {
+        await Promise.allSettled([
+            this.fetchCoinData(),
+            this.fetchGlobalData(),
+            this.fetchFearGreed()
+        ]);
+    },
+
+    // ── CoinGecko: Top 100 Coins ──
+    async fetchCoinData() {
+        try {
+            const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=24h%2C7d');
+            if (!res.ok) throw new Error(res.status);
+            this.coins = await res.json();
+            this.renderTable();
+            this.renderMarketStats();
+        } catch (e) { console.warn('CoinGecko markets:', e.message); }
+    },
+
+    // ── CoinGecko: Global Data ──
+    async fetchGlobalData() {
+        try {
+            const res = await fetch('https://api.coingecko.com/api/v3/global');
+            if (!res.ok) throw new Error(res.status);
+            this.global = (await res.json()).data;
+            this.renderMarketStats();
+        } catch (e) { console.warn('CoinGecko global:', e.message); }
+    },
+
+    // ── Alternative.me: Fear & Greed ──
+    async fetchFearGreed() {
+        try {
+            const res = await fetch('https://api.alternative.me/fng/?limit=1');
+            const json = await res.json();
+            this.fearGreed = json.data[0];
+            this.renderFearGreed();
+        } catch (e) { console.warn('Fear & Greed:', e.message); }
+    },
+
+    // ── CoinGlass: ETF Flow Data ──
+    async fetchETFFlows() {
+        await Promise.allSettled([
+            this.fetchSingleETFFlow('bitcoin'),
+            this.fetchSingleETFFlow('ethereum')
+        ]);
+    },
+
+    async fetchSingleETFFlow(type) {
+        const isBtc = type === 'bitcoin';
+        const prefix = isBtc ? 'btc' : 'eth';
+        try {
+            const url = `https://open-api.coinglass.com/public/v2/index/${type}-etf-flow-total`;
+            const res = await fetch(url);
+            if (!res.ok) throw new Error(res.status);
+            const json = await res.json();
+            if (json.code === '0' && json.data) {
+                this.renderETFFlowData(prefix, json.data);
+                return;
+            }
+        } catch (e) {
+            console.warn(`CoinGlass ${type} ETF:`, e.message);
+        }
+        // Fallback: try alternative endpoint format
+        try {
+            const url2 = `https://open-api.coinglass.com/public/v2/index/${type}_etf`;
+            const res2 = await fetch(url2);
+            if (res2.ok) {
+                const json2 = await res2.json();
+                if (json2.code === '0' && json2.data) {
+                    this.renderETFFlowData(prefix, json2.data);
+                    return;
+                }
+            }
+        } catch (e2) { /* silent */ }
+    },
+
+    renderETFFlowData(prefix, data) {
+        // CoinGlass returns total flow data
+        const dailyEl = document.getElementById(prefix + 'DailyFlow');
+        const totalEl = document.getElementById(prefix + 'TotalFlow');
+        const aumEl = document.getElementById(prefix + 'TotalAum');
+
+        if (data.totalDailyFlow != null) {
+            const val = data.totalDailyFlow;
+            dailyEl.textContent = this.fmtFlowValue(val);
+            dailyEl.className = 'etf-summary-value ' + (val >= 0 ? 'flow-positive' : 'flow-negative');
+        }
+        if (data.totalFlow != null) {
+            const val = data.totalFlow;
+            totalEl.textContent = this.fmtFlowValue(val);
+            totalEl.className = 'etf-summary-value ' + (val >= 0 ? 'flow-positive' : 'flow-negative');
+        }
+        if (data.totalAssets != null || data.totalAum != null) {
+            const val = data.totalAssets || data.totalAum;
+            aumEl.textContent = this.fmtCurrency(val);
+        }
+
+        // Update individual ETF flows if available
+        if (data.list && Array.isArray(data.list)) {
+            data.list.forEach(item => {
+                const flowEl = document.querySelector(`[data-etf-ticker="${item.ticker || item.symbol}"] .etf-flow`);
+                if (flowEl && item.dailyFlow != null) {
+                    flowEl.textContent = this.fmtFlowValue(item.dailyFlow);
+                    flowEl.className = 'etf-flow ' + (item.dailyFlow > 0 ? 'positive' : item.dailyFlow < 0 ? 'negative' : 'neutral');
+                }
+            });
+        }
+    },
+
+    // ── Render: Fear & Greed Gauge ──
+    renderFearGreed() {
+        const fg = this.fearGreed;
+        if (!fg) return;
+        const value = parseInt(fg.value);
+        const container = document.getElementById('fearGreedGauge');
+        const angle = Math.PI * (1 - value / 100);
+        const px = (100 + 65 * Math.cos(angle)).toFixed(1);
+        const py = (100 - 65 * Math.sin(angle)).toFixed(1);
+
+        let color, label;
+        if (value <= 20)      { color = '#ea3943'; label = 'Aşırı Korku'; }
+        else if (value <= 40) { color = '#ea8c00'; label = 'Korku'; }
+        else if (value <= 60) { color = '#f5d100'; label = 'Nötr'; }
+        else if (value <= 80) { color = '#93d900'; label = 'Açgözlülük'; }
+        else                  { color = '#16c784'; label = 'Aşırı Açgözlülük'; }
+
+        const updated = fg.timestamp ? new Date(fg.timestamp * 1000).toLocaleDateString('tr-TR') : '';
+
+        container.innerHTML = `
+            <div>
+                <svg viewBox="0 0 200 125" class="gauge-svg">
+                    <path d="M 20 100 A 80 80 0 0 1 35.3 53" stroke="#ea3943" stroke-width="12" fill="none" stroke-linecap="round"/>
+                    <path d="M 35.3 53 A 80 80 0 0 1 75.3 23.9" stroke="#ea8c00" stroke-width="12" fill="none"/>
+                    <path d="M 75.3 23.9 A 80 80 0 0 1 124.7 23.9" stroke="#f5d100" stroke-width="12" fill="none"/>
+                    <path d="M 124.7 23.9 A 80 80 0 0 1 164.7 53" stroke="#93d900" stroke-width="12" fill="none"/>
+                    <path d="M 164.7 53 A 80 80 0 0 1 180 100" stroke="#16c784" stroke-width="12" fill="none" stroke-linecap="round"/>
+                    <line x1="100" y1="100" x2="${px}" y2="${py}" stroke="rgba(255,255,255,0.85)" stroke-width="2.5" stroke-linecap="round"/>
+                    <circle cx="${px}" cy="${py}" r="5" fill="${color}" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>
+                    <circle cx="100" cy="100" r="4" fill="rgba(255,255,255,0.12)"/>
+                    <text x="100" y="80" text-anchor="middle" fill="${color}" font-size="34" font-weight="800" font-family="Inter,sans-serif">${value}</text>
+                    <text x="100" y="97" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="11" font-weight="500" font-family="Inter,sans-serif">${label}</text>
+                    <text x="16" y="118" text-anchor="start" fill="rgba(255,255,255,0.25)" font-size="8" font-family="Inter,sans-serif">Korku</text>
+                    <text x="184" y="118" text-anchor="end" fill="rgba(255,255,255,0.25)" font-size="8" font-family="Inter,sans-serif">Açgözlülük</text>
+                </svg>
+                ${updated ? `<div class="fg-update">Son güncelleme: ${updated}</div>` : ''}
+            </div>`;
+    },
+
+    // ── Render: Market Stats ──
+    renderMarketStats() {
+        const container = document.getElementById('marketStats');
+        const coins = this.coins;
+        const g = this.global;
+        if (!coins.length && !g) return;
+
+        const btc = coins[0];
+        const eth = coins.find(c => c.id === 'ethereum');
+        const btcDom = g ? g.market_cap_percentage?.btc?.toFixed(1) + '%' : '—';
+        const ethDom = g ? g.market_cap_percentage?.eth?.toFixed(1) + '%' : '—';
+        const totalMcap = g ? this.fmtCurrency(g.total_market_cap?.usd) : '—';
+        const totalVol = g ? this.fmtCurrency(g.total_volume?.usd) : '—';
+        const activeCrypto = g ? g.active_cryptocurrencies?.toLocaleString() : '—';
+
+        const stat = (label, value, change) => {
+            let chg = '';
+            if (change != null) {
+                const cls = change >= 0 ? 'up' : 'down';
+                chg = `<span class="stat-change ${cls}">${this.fmtPct(change)}</span>`;
+            }
+            return `<div class="stat-item"><span class="stat-label">${label}</span><span class="stat-value">${value}</span>${chg}</div>`;
+        };
+
+        container.innerHTML =
+            (btc ? stat('Bitcoin', this.fmtPrice(btc.current_price), btc.price_change_percentage_24h) : '') +
+            (eth ? stat('Ethereum', this.fmtPrice(eth.current_price), eth.price_change_percentage_24h) : '') +
+            stat('BTC Dominans', btcDom) +
+            stat('ETH Dominans', ethDom) +
+            stat('Toplam Piyasa Değeri', totalMcap) +
+            stat('24s Toplam Hacim', totalVol);
+    },
+
+    // ── Render: ETF Tables ──
+    renderETFTables() {
+        const btcETFs = [
+            { ticker: 'IBIT', name: 'iShares Bitcoin Trust', issuer: 'BlackRock' },
+            { ticker: 'FBTC', name: 'Fidelity Wise Origin Bitcoin Fund', issuer: 'Fidelity' },
+            { ticker: 'GBTC', name: 'Grayscale Bitcoin Trust', issuer: 'Grayscale' },
+            { ticker: 'ARKB', name: 'ARK 21Shares Bitcoin ETF', issuer: 'ARK/21Shares' },
+            { ticker: 'BITB', name: 'Bitwise Bitcoin ETF', issuer: 'Bitwise' },
+            { ticker: 'HODL', name: 'VanEck Bitcoin Trust', issuer: 'VanEck' },
+            { ticker: 'BRRR', name: 'Valkyrie Bitcoin Fund', issuer: 'CoinShares' },
+            { ticker: 'EZBC', name: 'Franklin Bitcoin ETF', issuer: 'Franklin Templeton' },
+            { ticker: 'BTCO', name: 'Invesco Galaxy Bitcoin ETF', issuer: 'Invesco' },
+            { ticker: 'BTCW', name: 'WisdomTree Bitcoin Fund', issuer: 'WisdomTree' }
+        ];
+        const ethETFs = [
+            { ticker: 'ETHA', name: 'iShares Ethereum Trust', issuer: 'BlackRock' },
+            { ticker: 'FETH', name: 'Fidelity Ethereum Fund', issuer: 'Fidelity' },
+            { ticker: 'ETHE', name: 'Grayscale Ethereum Trust', issuer: 'Grayscale' },
+            { ticker: 'ETHV', name: 'VanEck Ethereum ETF', issuer: 'VanEck' },
+            { ticker: 'ETHW', name: 'Bitwise Ethereum ETF', issuer: 'Bitwise' },
+            { ticker: 'CETH', name: '21Shares Core Ethereum ETF', issuer: '21Shares' },
+            { ticker: 'QETH', name: 'Invesco Galaxy Ethereum ETF', issuer: 'Invesco' },
+            { ticker: 'EZET', name: 'Franklin Ethereum ETF', issuer: 'Franklin Templeton' }
+        ];
+
+        document.getElementById('btcEtfList').innerHTML = this.buildETFTable(btcETFs);
+        document.getElementById('ethEtfList').innerHTML = this.buildETFTable(ethETFs);
+    },
+
+    buildETFTable(etfs) {
+        return `
+            <div class="etf-table">
+                <div class="etf-table-header">
+                    <span>Ticker</span><span>Fon Adı</span><span class="etf-col-issuer">İhraççı</span><span style="text-align:right">Günlük Akış</span>
+                </div>
+                ${etfs.map(e => `
+                    <div class="etf-table-row" data-etf-ticker="${e.ticker}">
+                        <span class="etf-ticker">${e.ticker}</span>
+                        <span class="etf-name">${e.name}</span>
+                        <span class="etf-issuer etf-col-issuer">${e.issuer}</span>
+                        <span class="etf-flow neutral">—</span>
+                    </div>`).join('')}
+            </div>`;
+    },
+
+    // ── Render: Crypto Table ──
+    renderTable() {
+        const tbody = document.getElementById('cryptoTableBody');
+        if (!this.coins.length) return;
+
+        const term = (document.getElementById('cryptoSearch')?.value || '').toLowerCase();
+        const filtered = term
+            ? this.coins.filter(c => c.name.toLowerCase().includes(term) || c.symbol.toLowerCase().includes(term))
+            : this.coins;
+
+        tbody.innerHTML = filtered.map(coin => {
+            const chg24 = coin.price_change_percentage_24h;
+            const chg7d = coin.price_change_percentage_7d_in_currency;
+            return `<tr>
+                <td>${coin.market_cap_rank || '—'}</td>
+                <td class="td-coin">
+                    <img src="${coin.image}" alt="${coin.symbol}" width="24" height="24" loading="lazy">
+                    <div class="coin-info">
+                        <span class="coin-name">${coin.name}</span>
+                        <span class="coin-symbol">${coin.symbol.toUpperCase()}</span>
+                    </div>
+                </td>
+                <td class="td-price">${this.fmtPrice(coin.current_price)}</td>
+                <td class="${chg24 >= 0 ? 'price-up' : 'price-down'}">${this.fmtPct(chg24)}</td>
+                <td class="${(chg7d || 0) >= 0 ? 'price-up' : 'price-down'}">${this.fmtPct(chg7d)}</td>
+                <td class="td-hide-mobile">${this.fmtCurrency(coin.market_cap)}</td>
+                <td class="td-hide-mobile">${this.fmtCurrency(coin.total_volume)}</td>
+                <td class="td-hide-tablet">${this.sparkline(coin.sparkline_in_7d?.price, (chg7d || 0) >= 0)}</td>
+            </tr>`;
+        }).join('');
+    },
+
+    sparkline(prices, isUp) {
+        if (!prices || prices.length < 2) return '';
+        const w = 100, h = 32;
+        const color = isUp ? '#16c784' : '#ea3943';
+        const min = Math.min(...prices);
+        const max = Math.max(...prices);
+        const range = max - min || 1;
+        const step = prices.length / w;
+        const pts = [];
+        for (let i = 0; i < w; i++) {
+            const idx = Math.min(Math.floor(i * step), prices.length - 1);
+            pts.push(`${i},${(h - ((prices[idx] - min) / range) * (h - 4) - 2).toFixed(1)}`);
+        }
+        return `<svg width="${w}" height="${h}" class="sparkline-svg"><polyline points="${pts.join(' ')}" fill="none" stroke="${color}" stroke-width="1.5"/></svg>`;
+    },
+
+    setupSearch() {
+        const input = document.getElementById('cryptoSearch');
+        if (!input) return;
+        let t;
+        input.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => this.renderTable(), 200); });
+    },
+
+    // ── Formatters ──
+    fmtPrice(p) {
+        if (p == null) return '—';
+        if (p >= 1) return '$' + p.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return '$' + p.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 6 });
+    },
+    fmtPct(v) {
+        if (v == null) return '—';
+        return (v >= 0 ? '+' : '') + v.toFixed(2) + '%';
+    },
+    fmtCurrency(v) {
+        if (v == null) return '—';
+        if (v >= 1e12) return '$' + (v / 1e12).toFixed(2) + 'T';
+        if (v >= 1e9) return '$' + (v / 1e9).toFixed(2) + 'B';
+        if (v >= 1e6) return '$' + (v / 1e6).toFixed(2) + 'M';
+        return '$' + v.toLocaleString('en-US');
+    },
+    fmtFlowValue(v) {
+        if (v == null) return '—';
+        const sign = v >= 0 ? '+' : '';
+        if (Math.abs(v) >= 1e9) return sign + '$' + (v / 1e9).toFixed(2) + 'B';
+        if (Math.abs(v) >= 1e6) return sign + '$' + (v / 1e6).toFixed(2) + 'M';
+        return sign + '$' + v.toLocaleString('en-US');
+    }
+};
+
+Dashboard.init();
+    </script>
+</body>
+</html>
