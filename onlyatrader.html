@@ -869,6 +869,68 @@ img {
 .stagger-children .fade-in:nth-child(4) { transition-delay: 0.3s; }
 .stagger-children .fade-in:nth-child(5) { transition-delay: 0.4s; }
 
+/* NEWS TICKER */
+.news-ticker {
+    position: fixed;
+    top: 68px;
+    left: 0; right: 0;
+    z-index: 999;
+    height: 36px;
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.news-ticker.loaded { opacity: 1; }
+.ticker-label {
+    display: flex; align-items: center; gap: 5px;
+    padding: 0 14px; height: 100%;
+    font-size: 0.65rem; font-weight: 700;
+    color: #ea3943; text-transform: uppercase;
+    letter-spacing: 1px; white-space: nowrap;
+    background: rgba(234, 57, 67, 0.08);
+    border-right: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+.ticker-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #ea3943; animation: tickerPulse 1.5s infinite;
+}
+@keyframes tickerPulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+.ticker-track {
+    flex: 1; overflow: hidden; height: 100%;
+    position: relative;
+    mask-image: linear-gradient(to right, transparent, black 40px, black calc(100% - 40px), transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 40px, black calc(100% - 40px), transparent);
+}
+.ticker-scroll {
+    display: flex; align-items: center; gap: 32px;
+    height: 100%; white-space: nowrap;
+    animation: tickerMove var(--ticker-duration, 60s) linear infinite;
+}
+.ticker-scroll:hover { animation-play-state: paused; }
+@keyframes tickerMove { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+.ticker-item {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.78rem; color: var(--text-secondary);
+    cursor: pointer; transition: color 0.2s;
+}
+.ticker-item:hover { color: var(--text-primary); }
+.ticker-item-dot {
+    width: 3px; height: 3px; border-radius: 50%;
+    background: var(--text-muted); flex-shrink: 0;
+}
+.ticker-item-source {
+    font-size: 0.68rem; color: var(--text-muted);
+    font-weight: 500;
+}
+body.has-ticker .hero { padding-top: calc(140px + 36px); }
+body.has-ticker .navbar.scrolled + .news-ticker { top: 60px; }
+
 /* RESPONSIVE */
 @media (max-width: 1024px) {
     .features-grid {
@@ -1012,6 +1074,17 @@ img {
         </div>
     </nav>
 
+    <!-- News Ticker -->
+    <div class="news-ticker" id="newsTicker">
+        <a href="haberler.html" class="ticker-label">
+            <span class="ticker-dot"></span>
+            Son Dakika
+        </a>
+        <div class="ticker-track">
+            <div class="ticker-scroll" id="tickerScroll"></div>
+        </div>
+    </div>
+
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
         <ul class="mobile-menu-links">
@@ -1138,6 +1211,19 @@ img {
                     </div>
                     <h3>Bitcoin ve Altcoin</h3>
                     <p>Bitcoin, Ethereum ve altcoin piyasalarında kurumsal sermaye akışını ve likidite bölgelerini takip eden derinlemesine teknik analizler.</p>
+                    <span class="feature-tag">Aktif</span>
+                </a>
+                <a href="haberler.html" class="feature-card" style="cursor:pointer;display:block;text-decoration:none;color:inherit">
+                    <div class="feature-icon" style="color:#ea3943">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M4 22h16a2 2 0 002-2V4a2 2 0 00-2-2H8a2 2 0 00-2 2v16a2 2 0 01-2 2zm0 0a2 2 0 01-2-2v-9c0-1.1.9-2 2-2h2"/>
+                            <path d="M18 14h-8"/>
+                            <path d="M15 18h-5"/>
+                            <path d="M10 6h8v4h-8z"/>
+                        </svg>
+                    </div>
+                    <h3>Canlı Haberler</h3>
+                    <p>Kripto piyasa haberleri, son dakika gelişmeleri, regülasyon kararları ve kurumsal yatırım haberleri anlık akış halinde.</p>
                     <span class="feature-tag">Aktif</span>
                 </a>
                 <div class="feature-card">
@@ -1541,6 +1627,48 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+// News Ticker
+(async function initNewsTicker() {
+    const ticker = document.getElementById('newsTicker');
+    const scroll = document.getElementById('tickerScroll');
+    if (!ticker || !scroll) return;
+
+    let items = [];
+    try {
+        const res = await fetch('https://min-api.cryptocompare.com/data/v2/news/?lang=EN&sortOrder=latest');
+        if (res.ok) {
+            const json = await res.json();
+            if (json.Data) items = json.Data.slice(0, 15);
+        }
+    } catch (e) { /* silent */ }
+
+    if (items.length === 0) {
+        try {
+            const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('https://cointelegraph.com/rss'));
+            if (res.ok) {
+                const json = await res.json();
+                if (json.items) items = json.items.slice(0, 15).map(i => ({
+                    title: i.title,
+                    url: i.link,
+                    source_info: { name: 'CoinTelegraph' }
+                }));
+            }
+        } catch (e) { /* silent */ }
+    }
+
+    if (items.length === 0) return;
+
+    const html = items.map(n =>
+        `<a href="haberler.html" class="ticker-item"><span class="ticker-item-dot"></span><span class="ticker-item-source">${n.source_info?.name || n.source || ''}</span>${n.title}</a>`
+    ).join('');
+    scroll.innerHTML = html + html;
+
+    const speed = items.length * 4;
+    scroll.style.setProperty('--ticker-duration', speed + 's');
+    ticker.classList.add('loaded');
+    document.body.classList.add('has-ticker');
+})();
     </script>
 </body>
 </html>
