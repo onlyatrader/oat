@@ -216,7 +216,7 @@ a { text-decoration: none; color: inherit; transition: color var(--transition); 
 }
 .news-tag.btc { background: rgba(247, 147, 26, 0.12); color: #f7931a; }
 .news-tag.eth { background: rgba(98, 126, 234, 0.12); color: #627eea; }
-.news-tag.defi { background: rgba(16, 185, 129, 0.12); color: #10b981; }
+.news-tag.defi { background: rgba(201, 162, 39, 0.12); color: #c9a227; }
 .news-tag.regulation { background: rgba(234, 57, 67, 0.12); color: #ea3943; }
 .news-tag.trading { background: rgba(37, 99, 235, 0.12); color: #2563eb; }
 
@@ -318,7 +318,7 @@ a { text-decoration: none; color: inherit; transition: color var(--transition); 
     <div class="page-header">
         <div class="container">
             <h1>Canlı <span>Haberler</span></h1>
-            <p class="page-subtitle"><span class="live-dot"></span>Kripto piyasa haberleri anlık güncellenmektedir</p>
+            <p class="page-subtitle"><span class="live-dot"></span>Küresel finans ve kripto piyasa haberleri anlık güncellenmektedir</p>
         </div>
     </div>
 
@@ -328,13 +328,13 @@ a { text-decoration: none; color: inherit; transition: color var(--transition); 
             <!-- Category Filters -->
             <div class="category-filters" id="categoryFilters">
                 <button class="cat-btn active" data-cat="">Tümü</button>
-                <button class="cat-btn" data-cat="BTC">Bitcoin</button>
-                <button class="cat-btn" data-cat="ETH">Ethereum</button>
-                <button class="cat-btn" data-cat="Altcoin">Altcoin</button>
-                <button class="cat-btn" data-cat="Trading">Trading</button>
-                <button class="cat-btn" data-cat="Regulation">Regülasyon</button>
-                <button class="cat-btn" data-cat="Blockchain">Blockchain</button>
-                <button class="cat-btn" data-cat="Mining">Madencilik</button>
+                <button class="cat-btn" data-cat="bitcoin">Bitcoin</button>
+                <button class="cat-btn" data-cat="altcoin">Altcoin</button>
+                <button class="cat-btn" data-cat="emtia">Emtia</button>
+                <button class="cat-btn" data-cat="endeks">Endeksler</button>
+                <button class="cat-btn" data-cat="forex">Forex</button>
+                <button class="cat-btn" data-cat="ekonomi">Ekonomi</button>
+                <button class="cat-btn" data-cat="regulasyon">Regülasyon</button>
             </div>
 
             <!-- Breaking News -->
@@ -359,7 +359,7 @@ a { text-decoration: none; color: inherit; transition: color var(--transition); 
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2026 <a href="onlyatrader.html">Only a Trader</a>. Haber kaynağı: CryptoCompare. Finansal tavsiye verilmez.</p>
+            <p>&copy; 2026 <a href="onlyatrader.html">Only a Trader</a>. Türkçe finans haber kaynakları. Finansal tavsiye verilmez.</p>
         </div>
     </footer>
 
@@ -369,29 +369,63 @@ const NewsFeed = {
     displayedCount: 0,
     pageSize: 12,
     activeCategory: '',
-    sources: [
+
+    // Türkçe finans ve kripto haber kaynakları
+    trSources: [
+        { name: 'Koin Bülteni', rss: 'https://koinbulteni.com/feed' },
+        { name: 'CoinTürk', rss: 'https://coin-turk.com/feed' },
+        { name: 'BeInCrypto TR', rss: 'https://tr.beincrypto.com/feed/' },
+        { name: 'Bloomberg HT', rss: 'https://www.bloomberght.com/rss' },
+        { name: 'Para Analiz', rss: 'https://www.paraanaliz.com/feed/' },
+        { name: 'Ekonomim', rss: 'https://www.ekonomim.com/rss' },
+        { name: 'BtcHaber', rss: 'https://www.btchaber.com/feed/' }
+    ],
+
+    // Yedek: İngilizce kaynaklar
+    enSources: [
         { name: 'CoinTelegraph', rss: 'https://cointelegraph.com/rss' },
         { name: 'CoinDesk', rss: 'https://www.coindesk.com/arc/outboundfeeds/rss/' },
-        { name: 'Decrypt', rss: 'https://decrypt.co/feed' },
-        { name: 'Bitcoin Magazine', rss: 'https://bitcoinmagazine.com/.rss/full/' }
+        { name: 'Investing.com', rss: 'https://tr.investing.com/rss/news.rss' }
     ],
 
     init() {
         this.setupFilters();
         this.setupLoadMore();
         this.fetchNews();
-        setInterval(() => this.fetchNews(), 180000); // 3 min
+        setInterval(() => this.fetchNews(), 180000);
     },
 
-    // ── Fetch from CryptoCompare first, fallback to RSS ──
     async fetchNews() {
         this.showLoading(true);
-        let fetched = await this.fetchCryptoCompare();
-        if (!fetched || fetched.length === 0) {
-            fetched = await this.fetchRSS();
+        const allItems = [];
+
+        // Önce Türkçe kaynaklardan çek
+        const trItems = await this.fetchRSS(this.trSources);
+        allItems.push(...trItems);
+
+        // Türkçe az geldiyse İngilizce kaynaklardan da ekle
+        if (allItems.length < 10) {
+            const enItems = await this.fetchRSS(this.enSources);
+            allItems.push(...enItems);
         }
-        if (fetched && fetched.length > 0) {
-            this.allNews = fetched;
+
+        // CryptoCompare'den de dene (Türkçe destekliyorsa TR, yoksa EN)
+        const ccItems = await this.fetchCryptoCompare();
+        if (ccItems) allItems.push(...ccItems);
+
+        // Tekrar edenleri kaldır (başlık bazlı)
+        const seen = new Set();
+        const unique = allItems.filter(item => {
+            const key = item.title.substring(0, 60).toLowerCase();
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+        });
+
+        unique.sort((a, b) => b.time - a.time);
+
+        if (unique.length > 0) {
+            this.allNews = unique;
             this.displayedCount = 0;
             this.render();
         } else {
@@ -401,36 +435,35 @@ const NewsFeed = {
     },
 
     async fetchCryptoCompare() {
-        try {
-            const url = 'https://min-api.cryptocompare.com/data/v2/news/?lang=EN&sortOrder=latest';
-            const res = await fetch(url);
-            if (!res.ok) throw new Error(res.status);
-            const json = await res.json();
-            if (!json.Data || json.Data.length === 0) throw new Error('no data');
-            return json.Data.map(item => ({
-                id: item.id,
-                title: item.title,
-                body: (item.body || '').substring(0, 200),
-                url: item.url,
-                image: item.imageurl,
-                source: item.source_info?.name || item.source || 'Unknown',
-                time: item.published_on * 1000,
-                categories: (item.categories || '').split('|').filter(Boolean),
-                tags: (item.tags || '').split('|').filter(Boolean).slice(0, 3)
-            }));
-        } catch (e) {
-            console.warn('CryptoCompare news:', e.message);
-            return null;
+        for (const lang of ['TR', 'EN']) {
+            try {
+                const res = await fetch('https://min-api.cryptocompare.com/data/v2/news/?lang=' + lang + '&sortOrder=latest');
+                if (!res.ok) continue;
+                const json = await res.json();
+                if (!json.Data || json.Data.length === 0) continue;
+                return json.Data.map(item => ({
+                    id: 'cc-' + item.id,
+                    title: item.title,
+                    body: (item.body || '').substring(0, 200),
+                    url: item.url,
+                    image: item.imageurl,
+                    source: item.source_info?.name || item.source || 'CryptoCompare',
+                    time: item.published_on * 1000,
+                    categories: this.classifyText(item.title + ' ' + (item.categories || '') + ' ' + (item.tags || '')),
+                    tags: []
+                }));
+            } catch (e) { /* silent */ }
         }
+        return null;
     },
 
-    async fetchRSS() {
+    async fetchRSS(sources) {
         const allItems = [];
         const proxy = 'https://api.rss2json.com/v1/api.json?rss_url=';
-        for (const src of this.sources) {
+        const fetches = sources.map(async (src) => {
             try {
                 const res = await fetch(proxy + encodeURIComponent(src.rss));
-                if (!res.ok) continue;
+                if (!res.ok) return;
                 const json = await res.json();
                 if (json.items) {
                     json.items.forEach(item => {
@@ -442,29 +475,49 @@ const NewsFeed = {
                             image: item.thumbnail || item.enclosure?.link || '',
                             source: src.name,
                             time: new Date(item.pubDate).getTime(),
-                            categories: this.guessCategories(item.title + ' ' + (item.description || '')),
+                            categories: this.classifyText(item.title + ' ' + (item.description || '')),
                             tags: []
                         });
                     });
                 }
-            } catch (e) {
-                console.warn('RSS fetch ' + src.name + ':', e.message);
-            }
-        }
-        allItems.sort((a, b) => b.time - a.time);
+            } catch (e) { /* silent */ }
+        });
+        await Promise.allSettled(fetches);
         return allItems;
     },
 
-    guessCategories(text) {
+    classifyText(text) {
         const cats = [];
         const t = text.toLowerCase();
-        if (t.includes('bitcoin') || t.includes('btc')) cats.push('BTC');
-        if (t.includes('ethereum') || t.includes('eth')) cats.push('ETH');
-        if (t.includes('altcoin') || t.includes('solana') || t.includes('xrp') || t.includes('cardano')) cats.push('Altcoin');
-        if (t.includes('defi') || t.includes('blockchain')) cats.push('Blockchain');
-        if (t.includes('regulation') || t.includes('sec') || t.includes('law')) cats.push('Regulation');
-        if (t.includes('trading') || t.includes('market')) cats.push('Trading');
-        if (t.includes('mining') || t.includes('hashrate')) cats.push('Mining');
+        // Bitcoin
+        if (t.includes('bitcoin') || t.includes('btc') || t.includes('satoshi')) cats.push('bitcoin');
+        // Altcoin
+        if (t.includes('ethereum') || t.includes('eth') || t.includes('altcoin') || t.includes('solana') ||
+            t.includes('xrp') || t.includes('cardano') || t.includes('bnb') || t.includes('avalanche') ||
+            t.includes('polkadot') || t.includes('dogecoin') || t.includes('shiba') || t.includes('kripto') ||
+            t.includes('crypto') || t.includes('defi') || t.includes('nft') || t.includes('blockchain') ||
+            t.includes('token') || t.includes('coin') || t.includes('mining') || t.includes('madencilik')) cats.push('altcoin');
+        // Emtia
+        if (t.includes('altın') || t.includes('gold') || t.includes('gümüş') || t.includes('silver') ||
+            t.includes('petrol') || t.includes('oil') || t.includes('emtia') || t.includes('commodity') ||
+            t.includes('bakır') || t.includes('copper') || t.includes('doğalgaz') || t.includes('natural gas')) cats.push('emtia');
+        // Endeksler
+        if (t.includes('s&p') || t.includes('nasdaq') || t.includes('dow jones') || t.includes('endeks') ||
+            t.includes('bist') || t.includes('borsa istanbul') || t.includes('dax') || t.includes('ftse') ||
+            t.includes('nikkei') || t.includes('hisse') || t.includes('stock') || t.includes('wall street')) cats.push('endeks');
+        // Forex
+        if (t.includes('dolar') || t.includes('dollar') || t.includes('euro') || t.includes('eur/usd') ||
+            t.includes('forex') || t.includes('kur') || t.includes('döviz') || t.includes('tl') ||
+            t.includes('yen') || t.includes('sterlin') || t.includes('gbp')) cats.push('forex');
+        // Ekonomi
+        if (t.includes('faiz') || t.includes('enflasyon') || t.includes('inflation') || t.includes('fed') ||
+            t.includes('merkez bankası') || t.includes('central bank') || t.includes('tcmb') || t.includes('ecb') ||
+            t.includes('gdp') || t.includes('gsyh') || t.includes('istihdam') || t.includes('employment') ||
+            t.includes('resesyon') || t.includes('recession') || t.includes('ekonomi') || t.includes('economy')) cats.push('ekonomi');
+        // Regülasyon
+        if (t.includes('regülasyon') || t.includes('regulation') || t.includes('sec') || t.includes('spk') ||
+            t.includes('yasa') || t.includes('law') || t.includes('düzenleme') || t.includes('ban') ||
+            t.includes('yasakla') || t.includes('lisans') || t.includes('license')) cats.push('regulasyon');
         return cats;
     },
 
@@ -584,12 +637,12 @@ const NewsFeed = {
     },
 
     tagClass(cat) {
-        const map = { BTC: 'btc', ETH: 'eth', Blockchain: 'defi', Technology: 'defi', Regulation: 'regulation', Trading: 'trading' };
+        const map = { bitcoin: 'btc', altcoin: 'eth', emtia: 'defi', endeks: 'trading', forex: 'trading', ekonomi: 'regulation', regulasyon: 'regulation' };
         return map[cat] || '';
     },
 
     catLabel(cat) {
-        const map = { BTC: 'Bitcoin', ETH: 'Ethereum', Regulation: 'Regülasyon', Mining: 'Madencilik', Blockchain: 'Blockchain', Trading: 'Trading', Altcoin: 'Altcoin', Technology: 'Teknoloji', Exchange: 'Borsa' };
+        const map = { bitcoin: 'Bitcoin', altcoin: 'Altcoin', emtia: 'Emtia', endeks: 'Endeksler', forex: 'Forex', ekonomi: 'Ekonomi', regulasyon: 'Regülasyon' };
         return map[cat] || cat;
     },
 
