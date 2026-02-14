@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Only a Trader raporlar sayfası.">
+    <title>Raporlar | Only a Trader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .reports-page { min-height: 100vh; padding: 140px 0 80px; }
+        .reports-shell {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+        .reports-status { margin: 16px 0 22px; color: var(--text-secondary); }
+        .reports-status.error { color: #f87171; }
+        .reports-list { display: grid; gap: 12px; }
+        .report-item {
+            padding: 14px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+        }
+        .report-item h3 { font-size: 1rem; margin-bottom: 6px; }
+        .report-item p { color: var(--text-secondary); font-size: 0.92rem; }
+        .report-meta { font-size: 0.78rem; color: var(--accent-blue); margin-top: 6px; display: inline-block; }
+
+        @media (max-width: 768px) { .reports-page { padding-top: 120px; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="/" class="nav-logo"><img src="../assets/logo.svg" alt="Only a Trader" class="nav-logo-img"></a>
+            <ul class="nav-links">
+                <li><a href="/">Ana Sayfa</a></li>
+                <li><a href="/onlyatrader.html#features">Analizler</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Menü"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <ul class="mobile-menu-links">
+            <li><a href="/">Ana Sayfa</a></li>
+            <li><a href="/onlyatrader.html#features">Analizler</a></li>
+        </ul>
+    </div>
+
+    <main class="reports-page">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Raporlar</span>
+                <h1 class="section-title">Piyasa Raporları</h1>
+                <p class="text-secondary">Bu sayfa açıldığında rapor verileri API üzerinden yüklenir.</p>
+            </div>
+
+            <section class="reports-shell">
+                <div id="reportsStatus" class="reports-status">Raporlar yükleniyor...</div>
+                <div id="reportsList" class="reports-list" aria-live="polite"></div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container"><div class="footer-bottom"><p>&copy; 2026 Only a Trader. All rights reserved.</p></div></div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        (async function loadReports() {
+            const statusEl = document.getElementById('reportsStatus');
+            const listEl = document.getElementById('reportsList');
+
+            const renderError = () => {
+                statusEl.textContent = 'Raporlar yüklenemedi. Lütfen daha sonra tekrar deneyin.';
+                statusEl.classList.add('error');
+            };
+
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/search/trending');
+                if (!response.ok) throw new Error('API error');
+                const data = await response.json();
+                const coins = (data.coins || []).slice(0, 8);
+
+                if (!coins.length) {
+                    renderError();
+                    return;
+                }
+
+                statusEl.textContent = 'Güncel raporlar yüklendi.';
+                listEl.innerHTML = coins.map((entry, idx) => {
+                    const c = entry.item;
+                    return `
+                        <article class="report-item">
+                            <h3>${idx + 1}. ${c.name} (${c.symbol})</h3>
+                            <p>Market cap sırası: #${c.market_cap_rank || 'N/A'} • Fiyat BTC: ${c.price_btc}</p>
+                            <span class="report-meta">Kaynak: CoinGecko Trending API</span>
+                        </article>`;
+                }).join('');
+            } catch (error) {
+                renderError();
+            }
+        })();
+    </script>
+</body>
+</html>
