@@ -869,12 +869,27 @@ img {
 .stagger-children .fade-in:nth-child(4) { transition-delay: 0.3s; }
 .stagger-children .fade-in:nth-child(5) { transition-delay: 0.4s; }
 
-/* NEWS TICKER */
-.news-ticker {
+/* TRADINGVIEW TICKER (üstte - canlı fiyatlar) */
+.tv-ticker-wrap {
     position: fixed;
     top: 68px;
     left: 0; right: 0;
     z-index: 999;
+    height: 46px;
+    background: rgba(5, 5, 7, 0.95);
+    border-bottom: 1px solid var(--border-color);
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.tv-ticker-wrap.loaded { opacity: 1; }
+.tv-ticker-wrap iframe { width: 100%; height: 46px; border: none; display: block; }
+/* NEWS TICKER (altta - son dakika haberler) */
+.news-ticker {
+    position: fixed;
+    top: 114px;
+    left: 0; right: 0;
+    z-index: 998;
     height: 36px;
     background: rgba(10, 10, 15, 0.95);
     backdrop-filter: blur(12px);
@@ -928,24 +943,7 @@ img {
     font-size: 0.68rem; color: var(--text-muted);
     font-weight: 500;
 }
-/* TRADINGVIEW TICKER */
-.tv-ticker-wrap {
-    position: fixed;
-    top: 104px;
-    left: 0; right: 0;
-    z-index: 998;
-    height: 46px;
-    background: rgba(5, 5, 7, 0.95);
-    border-bottom: 1px solid var(--border-color);
-    overflow: hidden;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-.tv-ticker-wrap.loaded { opacity: 1; }
-.tv-ticker-wrap iframe { width: 100%; height: 46px; border: none; display: block; }
 body.has-ticker .hero { padding-top: calc(140px + 82px); }
-body.has-ticker .navbar.scrolled + .news-ticker { top: 60px; }
-body.has-ticker .tv-ticker-wrap { top: 104px; }
 
 /* RESPONSIVE */
 @media (max-width: 1024px) {
@@ -1090,18 +1088,7 @@ body.has-ticker .tv-ticker-wrap { top: 104px; }
         </div>
     </nav>
 
-    <!-- News Ticker -->
-    <div class="news-ticker" id="newsTicker">
-        <a href="haberler.html" class="ticker-label">
-            <span class="ticker-dot"></span>
-            Son Dakika
-        </a>
-        <div class="ticker-track">
-            <div class="ticker-scroll" id="tickerScroll"></div>
-        </div>
-    </div>
-
-    <!-- TradingView Ticker -->
+    <!-- TradingView Ticker (üstte - canlı fiyatlar) -->
     <div class="tv-ticker-wrap" id="tvTicker">
         <div class="tradingview-widget-container">
             <div class="tradingview-widget-container__widget"></div>
@@ -1129,6 +1116,17 @@ body.has-ticker .tv-ticker-wrap { top: 104px; }
                 "locale": "tr"
             }
             </script>
+        </div>
+    </div>
+
+    <!-- News Ticker (altta - son dakika haberler) -->
+    <div class="news-ticker" id="newsTicker">
+        <a href="haberler.html" class="ticker-label">
+            <span class="ticker-dot"></span>
+            Son Dakika
+        </a>
+        <div class="ticker-track">
+            <div class="ticker-scroll" id="tickerScroll"></div>
         </div>
     </div>
 
@@ -1289,7 +1287,7 @@ body.has-ticker .tv-ticker-wrap { top: 104px; }
                     <span class="feature-tag">Aktif</span>
                 </div>
                 <!-- 4. Ekonomik Takvim ve Raporlar -->
-                <div class="feature-card">
+                <a href="ekonomik-takvim.html" class="feature-card" style="cursor:pointer;display:block;text-decoration:none;color:inherit">
                     <div class="feature-icon" style="color:#d97706">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -1301,8 +1299,8 @@ body.has-ticker .tv-ticker-wrap { top: 104px; }
                     </div>
                     <h3>Ekonomik Takvim ve Raporlar</h3>
                     <p>Küresel ekonomik takvim, FOMC, faiz kararları, tarım dışı istihdam, enflasyon verileri ve makroekonomik raporlar.</p>
-                    <span class="feature-tag feature-tag-soon">Çok Yakında</span>
-                </div>
+                    <span class="feature-tag">Aktif</span>
+                </a>
                 <!-- 5. Canlı Haberler -->
                 <a href="haberler.html" class="feature-card" style="cursor:pointer;display:block;text-decoration:none;color:inherit">
                     <div class="feature-icon" style="color:#ea3943">
@@ -1743,13 +1741,16 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     scroll.style.setProperty('--ticker-duration', speed + 's');
     ticker.classList.add('loaded');
     document.body.classList.add('has-ticker');
-
-    // TradingView widget yüklendikten sonra göster
-    setTimeout(() => {
-        const tvWrap = document.getElementById('tvTicker');
-        if (tvWrap) tvWrap.classList.add('loaded');
-    }, 2000);
 })();
+
+// TradingView ticker'ı hemen göster
+setTimeout(() => {
+    const tvWrap = document.getElementById('tvTicker');
+    if (tvWrap) {
+        tvWrap.classList.add('loaded');
+        document.body.classList.add('has-ticker');
+    }
+}, 1000);
     </script>
 </body>
 </html>

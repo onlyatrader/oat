@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ekonomik Takvim ve Raporlar - FOMC, faiz kararları, tarım dışı istihdam, enflasyon verileri ve makroekonomik raporlar.">
+    <title>Ekonomik Takvim ve Raporlar | Only a Trader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+:root {
+    --bg-primary: #050507;
+    --bg-secondary: #0a0a0f;
+    --bg-surface: #0f0f16;
+    --bg-card: #12121c;
+    --bg-card-hover: #161622;
+    --bg-elevated: #1a1a28;
+    --text-primary: #e8e8ed;
+    --text-secondary: #8888a0;
+    --text-muted: #55556a;
+    --accent-blue: #2563eb;
+    --accent-blue-dim: rgba(37, 99, 235, 0.15);
+    --accent-gold: #c9a227;
+    --accent-orange: #d97706;
+    --accent-red: #ea3943;
+    --accent-green: #10b981;
+    --border-color: rgba(255, 255, 255, 0.06);
+    --border-hover: rgba(255, 255, 255, 0.12);
+    --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.4);
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body { font-family: var(--font-main); background: var(--bg-primary); color: var(--text-primary); line-height: 1.7; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; transition: color var(--transition); }
+
+.container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+/* NAV */
+.navbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 16px 0;
+    background: rgba(5, 5, 7, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-color);
+}
+.nav-container { display: flex; align-items: center; justify-content: space-between; }
+.nav-right { display: flex; align-items: center; gap: 24px; }
+.back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.82rem; color: var(--text-muted);
+    padding: 6px 14px; border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    transition: all var(--transition);
+}
+.back-link:hover { color: var(--text-primary); border-color: var(--border-hover); }
+.back-link svg { width: 16px; height: 16px; }
+
+/* PAGE HEADER */
+.page-header {
+    padding: 110px 0 24px;
+    text-align: center;
+}
+.page-header h1 {
+    font-size: 2.2rem; font-weight: 700;
+    letter-spacing: -0.02em; margin-bottom: 8px;
+}
+.page-header h1 span { color: var(--accent-orange); }
+.page-subtitle {
+    color: var(--text-muted); font-size: 0.9rem;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.live-dot {
+    display: inline-block; width: 8px; height: 8px;
+    background: var(--accent-green); border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+/* INFO CARDS */
+.info-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 24px;
+}
+.info-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 18px 20px;
+    display: flex; align-items: flex-start; gap: 14px;
+    transition: all var(--transition);
+}
+.info-card:hover { border-color: var(--border-hover); }
+.info-icon {
+    width: 40px; height: 40px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: var(--radius-sm);
+    background: var(--accent-blue-dim);
+    color: var(--accent-blue);
+}
+.info-icon.orange { background: rgba(217,119,6,0.12); color: var(--accent-orange); }
+.info-icon.red { background: rgba(234,57,67,0.12); color: var(--accent-red); }
+.info-card h3 {
+    font-size: 0.85rem; font-weight: 600;
+    color: var(--text-primary); margin-bottom: 4px;
+}
+.info-card p {
+    font-size: 0.75rem; color: var(--text-muted); line-height: 1.5;
+}
+
+/* CALENDAR WRAPPER */
+.calendar-section {
+    margin-bottom: 32px;
+}
+.calendar-frame {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+}
+.calendar-frame iframe {
+    width: 100%;
+    height: 720px;
+    border: none;
+    display: block;
+}
+
+/* LEGEND */
+.legend-row {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px 0 0;
+    margin-bottom: 24px;
+}
+.legend-item {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 0.75rem; color: var(--text-secondary);
+}
+.legend-dot {
+    width: 10px; height: 10px; border-radius: 2px;
+}
+.legend-dot.high { background: #ea3943; }
+.legend-dot.medium { background: #d97706; }
+.legend-dot.low { background: #10b981; }
+
+/* FOOTER */
+.footer {
+    margin-top: 20px; padding: 32px 0;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+.footer p { font-size: 0.78rem; color: var(--text-muted); }
+.footer a { color: var(--accent-blue); }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .info-row { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+    .info-row { grid-template-columns: 1fr; }
+    .page-header h1 { font-size: 1.6rem; }
+    .calendar-frame iframe { height: 550px; }
+}
+@media (max-width: 480px) {
+    .container { padding: 0 16px; }
+    .calendar-frame iframe { height: 480px; }
+}
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="onlyatrader.html" class="nav-logo">
+                <svg viewBox="0 0 280 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:32px;width:auto;">
+                    <defs>
+                        <linearGradient id="tg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#fff"/><stop offset="100%" style="stop-color:#c8c8d0"/></linearGradient>
+                        <linearGradient id="ag" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#2563eb"/><stop offset="100%" style="stop-color:#3b82f6"/></linearGradient>
+                        <clipPath id="cL"><rect x="0" y="0" width="13" height="36"/><rect x="13" y="16" width="24" height="20"/></clipPath>
+                        <clipPath id="cR"><rect x="21" y="0" width="16" height="36"/><rect x="0" y="0" width="21" height="16"/></clipPath>
+                    </defs>
+                    <rect clip-path="url(#cL)" x="1" y="10" width="20" height="12" rx="6" stroke="url(#ag)" stroke-width="2" fill="none"/>
+                    <rect clip-path="url(#cR)" x="13" y="10" width="20" height="12" rx="6" stroke="url(#ag)" stroke-width="2" fill="none"/>
+                    <text x="40" y="24" font-family="Inter, sans-serif" font-size="18" font-weight="700" letter-spacing="3" fill="url(#tg)">ONLY A TRADER</text>
+                </svg>
+            </a>
+            <div class="nav-right">
+                <a href="onlyatrader.html" class="back-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+                    Ana Sayfa
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1>Ekonomik <span>Takvim</span> ve Raporlar</h1>
+            <p class="page-subtitle"><span class="live-dot"></span>Küresel ekonomik veriler ve makroekonomik takvim</p>
+        </div>
+    </div>
+
+    <main>
+        <div class="container">
+
+            <!-- Info Cards -->
+            <div class="info-row">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Ekonomik Takvim</h3>
+                        <p>FOMC, faiz kararları, tarım dışı istihdam, enflasyon verileri ve daha fazlası</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon orange">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="12" y1="8" x2="12" y2="12"/>
+                            <line x1="12" y1="16" x2="12.01" y2="16"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Önem Dereceleri</h3>
+                        <p>Yüksek, orta ve düşük etkili verileri filtreleyin ve takip edin</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon red">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M3 3v18h18"/>
+                            <path d="M7 16l4-8 4 4 4-4"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Gerçek vs Beklenti</h3>
+                        <p>Gerçekleşen, beklenen ve önceki verileri karşılaştırın</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Importance Legend -->
+            <div class="legend-row">
+                <div class="legend-item">
+                    <span class="legend-dot high"></span> Yüksek Etki
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot medium"></span> Orta Etki
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot low"></span> Düşük Etki
+                </div>
+            </div>
+
+            <!-- Economic Calendar -->
+            <div class="calendar-section">
+                <div class="calendar-frame">
+                    <iframe src="https://sslecal2.investing.com?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&features=datepicker,timezone&countries=110,17,25,32,6,37,36,26,5,22,39,14,48,10,35,7,43,38,4,12,72&calType=week&timeZone=55&lang=12" allowtransparency="true" scrolling="auto"></iframe>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 <a href="onlyatrader.html">Only a Trader</a>. Ekonomik takvim verileri Investing.com kaynaklıdır. Finansal tavsiye verilmez.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
