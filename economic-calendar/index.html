@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Only a Trader ekonomik takvim sayfası.">
+    <title>Ekonomik Takvim | Only a Trader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .calendar-page {
+            min-height: 100vh;
+            padding: 140px 0 80px;
+        }
+
+        .calendar-shell {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .calendar-intro {
+            padding: 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .calendar-widget-wrap {
+            width: 100%;
+            min-height: 720px;
+        }
+
+        .tradingview-widget-container,
+        .tradingview-widget-container__widget {
+            width: 100%;
+            min-height: 720px;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-page { padding-top: 120px; }
+            .calendar-widget-wrap,
+            .tradingview-widget-container,
+            .tradingview-widget-container__widget { min-height: 700px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="/" class="nav-logo">
+                <img src="../assets/logo.svg" alt="Only a Trader" class="nav-logo-img">
+            </a>
+            <ul class="nav-links">
+                <li><a href="/">Ana Sayfa</a></li>
+                <li><a href="/onlyatrader.html#features">Analizler</a></li>
+                <li><a href="/onlyatrader.html#education">Eğitimler</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Menü">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <ul class="mobile-menu-links">
+            <li><a href="/">Ana Sayfa</a></li>
+            <li><a href="/onlyatrader.html#features">Analizler</a></li>
+            <li><a href="/onlyatrader.html#education">Eğitimler</a></li>
+        </ul>
+    </div>
+
+    <main class="calendar-page">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Makro Veri Akışı</span>
+                <h1 class="section-title">Ekonomik Takvim</h1>
+            </div>
+
+            <section class="calendar-shell">
+                <div class="calendar-intro">
+                    <p class="text-secondary">Yüksek etkili veri açıklamalarını Europe/Istanbul saat dilimine göre takip edin.</p>
+                </div>
+                <div class="calendar-widget-wrap">
+                    <div class="tradingview-widget-container">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+                        {
+                            "colorTheme": "dark",
+                            "isTransparent": true,
+                            "width": "100%",
+                            "height": 720,
+                            "locale": "tr_TR",
+                            "importanceFilter": "-1,0,1",
+                            "countryFilter": "us,eu,tr,gb,jp,cn",
+                            "timezone": "Europe/Istanbul"
+                        }
+                        </script>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Only a Trader. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

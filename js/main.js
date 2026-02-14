@@ -3,12 +3,34 @@
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
+    initScrollBehavior();
     initNavbar();
     initMobileMenu();
     initScrollAnimations();
     initHeroCanvas();
     initWaitlistForm();
 });
+
+
+/* --- Prevent unwanted automatic scroll on initial load/restore --- */
+function initScrollBehavior() {
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+
+    const resetToTop = () => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+        requestAnimationFrame(() => window.scrollTo(0, 0));
+    };
+
+    // Avoid browser auto-jump when opening URL with hash directly.
+    if (window.location.hash) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+
+    resetToTop();
+    window.addEventListener('pageshow', resetToTop);
+}
 
 /* --- Navbar scroll effect --- */
 function initNavbar() {
@@ -255,8 +277,13 @@ function initWaitlistForm() {
 /* --- Smooth scroll for anchor links --- */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (!href || href === '#') {
+            return;
+        }
+
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const target = document.querySelector(href);
         if (target) {
             const offset = 80;
             const elementPosition = target.getBoundingClientRect().top;
@@ -266,6 +293,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 top: offsetPosition,
                 behavior: 'smooth'
             });
+
+            history.pushState(null, '', href);
         }
     });
 });
