@@ -130,13 +130,35 @@ a { text-decoration: none; color: inherit; transition: color var(--transition); 
     border-radius: var(--radius-lg);
     overflow: hidden;
     position: relative;
+    min-height: 800px;
+}
+.calendar-frame #economicCalendarWidget {
+    width: 100%;
+    height: 800px;
 }
 .calendar-frame iframe {
-    width: 100%;
-    height: 720px;
-    border: none;
-    display: block;
+    width: 100% !important;
+    border: none !important;
 }
+
+/* LOADING STATE */
+.calendar-loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 60px 0;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+.calendar-loader .spinner-ring {
+    display: inline-block; width: 24px; height: 24px;
+    border: 2px solid var(--border-color);
+    border-top-color: var(--accent-blue);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
 
 /* LEGEND */
 .legend-row {
@@ -172,11 +194,13 @@ a { text-decoration: none; color: inherit; transition: color var(--transition); 
 @media (max-width: 768px) {
     .info-row { grid-template-columns: 1fr; }
     .page-header h1 { font-size: 1.6rem; }
-    .calendar-frame iframe { height: 550px; }
+    .calendar-frame,
+    .calendar-frame #economicCalendarWidget { min-height: 600px; height: 600px; }
 }
 @media (max-width: 480px) {
     .container { padding: 0 16px; }
-    .calendar-frame iframe { height: 480px; }
+    .calendar-frame,
+    .calendar-frame #economicCalendarWidget { min-height: 500px; height: 500px; }
 }
     </style>
 </head>
@@ -211,7 +235,7 @@ a { text-decoration: none; color: inherit; transition: color var(--transition); 
     <div class="page-header">
         <div class="container">
             <h1>Ekonomik <span>Takvim</span> ve Raporlar</h1>
-            <p class="page-subtitle"><span class="live-dot"></span>Küresel ekonomik veriler ve makroekonomik takvim</p>
+            <p class="page-subtitle"><span class="live-dot"></span>Makro veriler, faiz kararları, enflasyon, istihdam ve küresel ekonomik göstergeler</p>
         </div>
     </div>
 
@@ -274,10 +298,14 @@ a { text-decoration: none; color: inherit; transition: color var(--transition); 
                 </div>
             </div>
 
-            <!-- Economic Calendar -->
+            <!-- Economic Calendar - Tradays Widget -->
             <div class="calendar-section">
                 <div class="calendar-frame">
-                    <iframe src="https://sslecal2.investing.com?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&features=datepicker,timezone&countries=110,17,25,32,6,37,36,26,5,22,39,14,48,10,35,7,43,38,4,12,72&calType=week&timeZone=55&lang=12" allowtransparency="true" scrolling="auto"></iframe>
+                    <div class="calendar-loader" id="calendarLoader">
+                        <div class="spinner-ring"></div>
+                        <span>Ekonomik takvim yükleniyor...</span>
+                    </div>
+                    <div id="economicCalendarWidget"></div>
                 </div>
             </div>
 
@@ -286,9 +314,33 @@ a { text-decoration: none; color: inherit; transition: color var(--transition); 
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2026 <a href="onlyatrader.html">Only a Trader</a>. Ekonomik takvim verileri Investing.com kaynaklıdır. Finansal tavsiye verilmez.</p>
+            <p>&copy; 2026 <a href="onlyatrader.html">Only a Trader</a>. Ekonomik takvim verileri Tradays kaynaklıdır. Finansal tavsiye verilmez.</p>
         </div>
     </footer>
+
+    <!-- Tradays Economic Calendar Widget Script -->
+    <script type="text/javascript"
+        data-type="calendar-widget"
+        data-lang="tr"
+        src="https://www.tradays.com/c/js/widgets/calendar/widget.js?v=10">
+        {"width":"100%","height":"100%","mode":"2","lang":"tr"}
+    </script>
+    <script>
+    // Widget yüklendiğinde loader'ı gizle
+    const loader = document.getElementById('calendarLoader');
+    if (loader) {
+        const observer = new MutationObserver((mutations) => {
+            const widget = document.getElementById('economicCalendarWidget');
+            if (widget && widget.children.length > 0) {
+                loader.style.display = 'none';
+                observer.disconnect();
+            }
+        });
+        observer.observe(document.getElementById('economicCalendarWidget'), { childList: true, subtree: true });
+        // Fallback: 5 saniye sonra loader'ı gizle
+        setTimeout(() => { loader.style.display = 'none'; }, 5000);
+    }
+    </script>
 
 </body>
 </html>
