@@ -595,14 +595,14 @@ img {
 .features-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 16px;
 }
 
 .feature-card {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
-    padding: 32px;
+    padding: 26px;
     transition: all var(--transition);
     position: relative;
     overflow: hidden;
@@ -641,15 +641,15 @@ img {
 }
 
 .feature-icon {
-    width: 52px;
-    height: 52px;
+    width: 46px;
+    height: 46px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--accent-blue-dim);
     border-radius: var(--radius-md);
     color: var(--accent-blue);
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 
 .feature-icon-gold {
@@ -658,17 +658,17 @@ img {
 }
 
 .feature-card h3 {
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 600;
     margin-bottom: 12px;
     color: var(--text-primary);
 }
 
 .feature-card p {
-    font-size: 0.88rem;
+    font-size: 0.84rem;
     color: var(--text-secondary);
     line-height: 1.7;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 }
 
 .feature-tag {
@@ -686,6 +686,28 @@ img {
 .feature-tag-soon {
     color: var(--accent-orange);
     background: var(--accent-orange-dim);
+}
+
+.economic-calendar-embed {
+    width: 100%;
+    height: 180px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    margin: 6px 0 12px;
+    background: var(--bg-secondary);
+}
+
+.feature-calendar-link {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    font-size: 0.76rem;
+    color: var(--accent-blue);
+    margin-bottom: 12px;
+}
+
+.feature-calendar-link:hover {
+    color: #5b8dff;
 }
 
 /* EDUCATION SECTION */
@@ -872,7 +894,7 @@ img {
 /* NEWS TICKER */
 .news-ticker {
     position: fixed;
-    top: 68px;
+    top: 114px;
     left: 0; right: 0;
     z-index: 999;
     height: 36px;
@@ -931,7 +953,7 @@ img {
 /* TRADINGVIEW TICKER */
 .tv-ticker-wrap {
     position: fixed;
-    top: 104px;
+    top: 68px;
     left: 0; right: 0;
     z-index: 998;
     height: 46px;
@@ -944,8 +966,10 @@ img {
 .tv-ticker-wrap.loaded { opacity: 1; }
 .tv-ticker-wrap iframe { width: 100%; height: 46px; border: none; display: block; }
 body.has-ticker .hero { padding-top: calc(140px + 82px); }
-body.has-ticker .navbar.scrolled + .news-ticker { top: 60px; }
-body.has-ticker .tv-ticker-wrap { top: 104px; }
+body.has-ticker .navbar.scrolled ~ .tv-ticker-wrap { top: 60px; }
+body.has-ticker .navbar.scrolled ~ .news-ticker { top: 106px; }
+body.has-ticker .tv-ticker-wrap { top: 68px; }
+body.has-ticker .news-ticker { top: 114px; }
 
 /* RESPONSIVE */
 @media (max-width: 1024px) {
@@ -1090,17 +1114,6 @@ body.has-ticker .tv-ticker-wrap { top: 104px; }
         </div>
     </nav>
 
-    <!-- News Ticker -->
-    <div class="news-ticker" id="newsTicker">
-        <a href="haberler.html" class="ticker-label">
-            <span class="ticker-dot"></span>
-            Son Dakika
-        </a>
-        <div class="ticker-track">
-            <div class="ticker-scroll" id="tickerScroll"></div>
-        </div>
-    </div>
-
     <!-- TradingView Ticker -->
     <div class="tv-ticker-wrap" id="tvTicker">
         <div class="tradingview-widget-container">
@@ -1129,6 +1142,17 @@ body.has-ticker .tv-ticker-wrap { top: 104px; }
                 "locale": "tr"
             }
             </script>
+        </div>
+    </div>
+
+    <!-- News Ticker -->
+    <div class="news-ticker" id="newsTicker">
+        <a href="haberler.html" class="ticker-label">
+            <span class="ticker-dot"></span>
+            Son Dakika
+        </a>
+        <div class="ticker-track">
+            <div class="ticker-scroll" id="tickerScroll"></div>
         </div>
     </div>
 
@@ -1300,8 +1324,10 @@ body.has-ticker .tv-ticker-wrap { top: 104px; }
                         </svg>
                     </div>
                     <h3>Ekonomik Takvim ve Raporlar</h3>
-                    <p>Küresel ekonomik takvim, FOMC, faiz kararları, tarım dışı istihdam, enflasyon verileri ve makroekonomik raporlar.</p>
-                    <span class="feature-tag feature-tag-soon">Çok Yakında</span>
+                    <p>Investing.com ekonomik takvimi ile FOMC, faiz, enflasyon ve istihdam verilerini tek alandan takip edin.</p>
+                    <iframe class="economic-calendar-embed" src="https://www.investing.com/economic-calendar/" title="Ekonomik Takvim" loading="lazy"></iframe>
+                    <a href="https://www.investing.com/economic-calendar" target="_blank" rel="noopener noreferrer" class="feature-calendar-link">Takvimi yeni sekmede aç</a>
+                    <span class="feature-tag">Aktif</span>
                 </div>
                 <!-- 5. Canlı Haberler -->
                 <a href="haberler.html" class="feature-card" style="cursor:pointer;display:block;text-decoration:none;color:inherit">
