@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradingView Desktop Kurulumu - Only a Trader</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/tradingview-desktop.css">
+    <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <img src="assets/logo.svg" alt="Only a Trader" height="32">
+        </a>
+        <button class="menu-toggle" aria-label="Menü">☰</button>
+        <div class="menu">
+            <a href="index.html">Ana Sayfa</a>
+            <a href="tradingview-desktop.html" aria-current="page">TradingView Desktop</a>
+        </div>
+    </nav>
+
+    <header class="tv-hero">
+        <div class="container">
+            <h1>TradingView Desktop</h1>
+            <p class="tv-subtitle">
+                Tarayıcıdan bağımsız, daha hızlı ve daha stabil grafik deneyimi için
+                TradingView'ın resmi masaüstü uygulamasını kurun.
+            </p>
+            <a href="https://www.tradingview.com/desktop/" class="tv-cta" target="_blank" rel="noopener noreferrer">
+                Resmi indirme sayfasına git
+            </a>
+        </div>
+    </header>
+
+    <section class="tv-platforms">
+        <div class="container">
+            <h2>Platformunuzu seçin</h2>
+            <div class="tv-grid">
+                <article class="tv-card">
+                    <h3>Windows</h3>
+                    <p>Windows 10 ve üzeri 64-bit sürümler desteklenir.</p>
+                    <a href="https://www.tradingview.com/desktop/"
+                       target="_blank" rel="noopener noreferrer">Windows için indir</a>
+                </article>
+
+                <article class="tv-card">
+                    <h3>macOS</h3>
+                    <p>macOS 11 Big Sur ve üzeri; Intel ve Apple Silicon destekli.</p>
+                    <a href="https://www.tradingview.com/desktop/"
+                       target="_blank" rel="noopener noreferrer">macOS için indir</a>
+                </article>
+
+                <article class="tv-card">
+                    <h3>Linux</h3>
+                    <p>Ubuntu/Debian için .deb ve diğer dağıtımlar için .rpm paketleri.</p>
+                    <a href="https://www.tradingview.com/desktop/"
+                       target="_blank" rel="noopener noreferrer">Linux için indir</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="tv-steps">
+        <div class="container">
+            <h2>Kurulum adımları</h2>
+            <ol>
+                <li>Yukarıdan işletim sisteminize uygun paketi indirin.</li>
+                <li>İndirilen dosyayı çalıştırın ve yükleyici adımlarını takip edin.</li>
+                <li>Uygulamayı açın ve TradingView hesabınızla oturum açın.</li>
+                <li>Favori grafiklerinizi ve watchlist'lerinizi senkronize edin.</li>
+            </ol>
+            <p class="tv-note">
+                Not: İndirmeler her zaman
+                <a href="https://www.tradingview.com/desktop/" target="_blank" rel="noopener noreferrer">
+                tradingview.com/desktop</a>
+                adresinden yapılmalıdır. Üçüncü parti kaynakları kullanmayın.
+            </p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; Only a Trader</p>
+        </div>
+    </footer>
+
+    <script>
+        const toggle = document.querySelector('.menu-toggle');
+        const menu = document.querySelector('.menu');
+        if (toggle && menu) {
+            toggle.addEventListener('click', () => menu.classList.toggle('active'));
+        }
+    </script>
+</body>
+</html>
